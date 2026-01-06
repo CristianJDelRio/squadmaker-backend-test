@@ -66,8 +66,8 @@ async function main(): Promise<void> {
     }
   }
 
-  console.log(
-    `Seeded ${users.length} users, ${categories.length} categories, ${jokeCount} jokes`
+  console.warn(
+    `✅ Seeded ${users.length} users, ${categories.length} categories, ${jokeCount} jokes`
   );
 }
 

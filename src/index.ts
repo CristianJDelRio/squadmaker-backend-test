@@ -16,5 +16,7 @@ async function main(): Promise<void> {
   }
 }
 
-//TODO: setuup prisma
-main();
+main().catch((error) => {
+  console.error('Unhandled error:', error);
+  process.exit(1);
+});
