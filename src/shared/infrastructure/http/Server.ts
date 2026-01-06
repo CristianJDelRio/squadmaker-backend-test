@@ -6,6 +6,7 @@ import rateLimit from 'express-rate-limit';
 import swaggerUi from 'swagger-ui-express';
 import { Logger } from '../logger/Logger';
 import { errorHandler } from './middlewares/errorHandler';
+import { requestLogger } from './middlewares/requestLogger';
 import { createHealthRoutes } from './routes/healthRoutes';
 import { createJokesRoutes } from './routes/jokesRoutes';
 import { swaggerSpec } from './swagger.config';
@@ -33,6 +34,8 @@ export class Server {
       max: 100,
     });
     this.app.use(limiter);
+
+    this.app.use(requestLogger(this.logger));
   }
 
   private setupSwagger(): void {
