@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { AppError } from '../../../domain/errors/AppError';
+import { DomainError } from '../../../../contexts/shared/domain/errors/DomainError';
+import { HttpErrorMapper } from '../HttpErrorMapper';
 import { Logger } from '../../logger/Logger';
 
 export function errorHandler(logger: Logger) {
@@ -9,13 +10,16 @@ export function errorHandler(logger: Logger) {
     res: Response,
     _next: NextFunction
   ): void => {
-    if (err instanceof AppError) {
+    if (err instanceof DomainError) {
+      const statusCode = HttpErrorMapper.toStatusCode(err);
+
       logger.warn(err.message, {
-        statusCode: err.statusCode,
+        statusCode,
         path: req.path,
+        errorType: err.name,
       });
 
-      res.status(err.statusCode).json({
+      res.status(statusCode).json({
         error: err.message,
       });
       return;

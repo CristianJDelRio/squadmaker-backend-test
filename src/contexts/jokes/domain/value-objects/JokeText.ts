@@ -1,0 +1,24 @@
+import { ValidationError } from '../../../shared/domain/errors/ValidationError';
+
+export class JokeText {
+  public readonly value: string;
+
+  constructor(value: string) {
+    this.validate(value);
+    this.value = value;
+  }
+
+  private validate(value: string): void {
+    if (!value || value.trim().length === 0) {
+      throw new ValidationError('Joke text cannot be empty');
+    }
+  }
+
+  equals(other: JokeText): boolean {
+    return this.value === other.value;
+  }
+
+  toString(): string {
+    return this.value;
+  }
+}
