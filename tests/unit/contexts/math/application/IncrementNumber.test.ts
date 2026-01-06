@@ -31,17 +31,23 @@ describe('IncrementNumber Use Case', () => {
 
     it('should throw ValidationError when number is not an integer', () => {
       expect(() => incrementNumber.execute(1.5)).toThrow(ValidationError);
-      expect(() => incrementNumber.execute(1.5)).toThrow('Number must be an integer');
+      expect(() => incrementNumber.execute(1.5)).toThrow(
+        'Number must be an integer'
+      );
     });
 
     it('should throw ValidationError when number is NaN', () => {
       expect(() => incrementNumber.execute(NaN)).toThrow(ValidationError);
-      expect(() => incrementNumber.execute(NaN)).toThrow('Number must be a valid number');
+      expect(() => incrementNumber.execute(NaN)).toThrow(
+        'Number must be a valid number'
+      );
     });
 
     it('should throw ValidationError when number is Infinity', () => {
       expect(() => incrementNumber.execute(Infinity)).toThrow(ValidationError);
-      expect(() => incrementNumber.execute(Infinity)).toThrow('Number must be a valid number');
+      expect(() => incrementNumber.execute(Infinity)).toThrow(
+        'Number must be a valid number'
+      );
     });
   });
 });

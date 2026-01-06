@@ -41,22 +41,30 @@ describe('CalculateLCM Use Case', () => {
 
     it('should throw ValidationError when array is empty', () => {
       expect(() => calculateLCM.execute([])).toThrow(ValidationError);
-      expect(() => calculateLCM.execute([])).toThrow('Numbers array cannot be empty');
+      expect(() => calculateLCM.execute([])).toThrow(
+        'Numbers array cannot be empty'
+      );
     });
 
     it('should throw ValidationError when numbers contain zero', () => {
       expect(() => calculateLCM.execute([0, 5])).toThrow(ValidationError);
-      expect(() => calculateLCM.execute([0, 5])).toThrow('Numbers must be positive integers');
+      expect(() => calculateLCM.execute([0, 5])).toThrow(
+        'Numbers must be positive integers'
+      );
     });
 
     it('should throw ValidationError when numbers contain negative values', () => {
       expect(() => calculateLCM.execute([-5, 10])).toThrow(ValidationError);
-      expect(() => calculateLCM.execute([-5, 10])).toThrow('Numbers must be positive integers');
+      expect(() => calculateLCM.execute([-5, 10])).toThrow(
+        'Numbers must be positive integers'
+      );
     });
 
     it('should throw ValidationError when numbers are not integers', () => {
       expect(() => calculateLCM.execute([1.5, 2.5])).toThrow(ValidationError);
-      expect(() => calculateLCM.execute([1.5, 2.5])).toThrow('Numbers must be positive integers');
+      expect(() => calculateLCM.execute([1.5, 2.5])).toThrow(
+        'Numbers must be positive integers'
+      );
     });
   });
 });

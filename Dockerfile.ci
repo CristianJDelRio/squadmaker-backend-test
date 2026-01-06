@@ -1,0 +1,42 @@
+FROM node:20-alpine AS builder
+
+RUN npm install -g pnpm@10.27.0
+
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml ./
+
+RUN pnpm install --frozen-lockfile
+
+COPY prisma ./prisma
+
+RUN pnpm run db:generate
+
+COPY . .
+
+RUN pnpm run build
+
+FROM node:20-alpine
+
+RUN npm install -g pnpm@10.27.0
+
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml ./
+
+RUN pnpm install --frozen-lockfile --prod=false
+
+COPY prisma ./prisma
+RUN pnpm run db:generate
+
+COPY --from=builder /app/dist ./dist
+
+COPY src ./src
+COPY tests ./tests
+COPY tsconfig.json ./
+COPY jest.config.ts ./
+
+ENV NODE_ENV=test
+ENV CI=true
+
+CMD ["pnpm", "test"]

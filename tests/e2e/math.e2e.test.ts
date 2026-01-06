@@ -151,7 +151,9 @@ describe('Math Endpoints E2E', () => {
     });
 
     it('should return 400 when number parameter is missing', async () => {
-      const response = await request(app).get('/api/v1/math/increment').expect(400);
+      const response = await request(app)
+        .get('/api/v1/math/increment')
+        .expect(400);
 
       expect(response.body).toHaveProperty('error');
     });

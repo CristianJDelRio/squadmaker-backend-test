@@ -55,44 +55,47 @@ export function createMathRoutes(): Router {
    *                 error:
    *                   type: string
    */
-  router.get('/lcm', async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const query = LCMQuerySchema.parse(req.query);
+  router.get(
+    '/lcm',
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const query = LCMQuerySchema.parse(req.query);
 
-      const numbersStr = query.numbers.trim();
-      if (numbersStr === '') {
-        return res.status(400).json({
-          error: 'Numbers array cannot be empty',
-        });
-      }
-
-      const parsedNumbers: number[] = [];
-      for (const n of numbersStr.split(',')) {
-        const num = Number(n.trim());
-        if (isNaN(num)) {
+        const numbersStr = query.numbers.trim();
+        if (numbersStr === '') {
           return res.status(400).json({
-            error: `Invalid number: ${n.trim()}`,
+            error: 'Numbers array cannot be empty',
           });
         }
-        parsedNumbers.push(num);
-      }
 
-      const lcm = calculateLCM.execute(parsedNumbers);
+        const parsedNumbers: number[] = [];
+        for (const n of numbersStr.split(',')) {
+          const num = Number(n.trim());
+          if (isNaN(num)) {
+            return res.status(400).json({
+              error: `Invalid number: ${n.trim()}`,
+            });
+          }
+          parsedNumbers.push(num);
+        }
 
-      return res.status(200).json({
-        numbers: parsedNumbers,
-        lcm,
-      });
-    } catch (error) {
-      if (error instanceof ZodError) {
-        return res.status(400).json({
-          error: 'Validation failed',
-          details: error.issues,
+        const lcm = calculateLCM.execute(parsedNumbers);
+
+        return res.status(200).json({
+          numbers: parsedNumbers,
+          lcm,
         });
+      } catch (error) {
+        if (error instanceof ZodError) {
+          return res.status(400).json({
+            error: 'Validation failed',
+            details: error.issues,
+          });
+        }
+        return next(error);
       }
-      return next(error);
     }
-  });
+  );
 
   /**
    * @swagger

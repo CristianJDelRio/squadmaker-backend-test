@@ -9,10 +9,14 @@ dist
 coverage
 .nyc_output
 
-# Environment files
+# Environment files (will be loaded from docker-compose env_file)
 .env
 .env.local
 .env.*.local
+.env.dev
+.env.prod
+.env.ci
+.env.test
 
 # Git
 .git
@@ -47,8 +51,11 @@ Thumbs.db
 
 # Docker
 docker-compose.yml
+docker-compose.*.yml
 Dockerfile
+Dockerfile.*
 .dockerignore
+DOCKER.md
 
 # CI/CD
 .github

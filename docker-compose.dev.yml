@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: squadmakers-postgres-dev
+    restart: no
+    environment:
+      POSTGRES_USER: squadmakers_user
+      POSTGRES_PASSWORD: squadmakers_dev_password
+      POSTGRES_DB: squadmakers_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+      - ./scripts/init-databases.sh:/docker-entrypoint-initdb.d/init-databases.sh
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U squadmakers_user -d squadmakers_db']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - squadmakers-dev-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: squadmakers-app-dev
+    restart: no
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env.dev
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DATABASE_URL: postgresql://squadmakers_user:squadmakers_dev_password@postgres:5432/squadmakers_db?schema=public
+      CHUCK_NORRIS_API_URL: https://api.chucknorris.io
+      DAD_JOKES_API_URL: https://icanhazdadjoke.com
+      LOG_LEVEL: debug
+      ENABLE_DEBUG: "true"
+    ports:
+      - '3000:3000'
+      - '9229:9229'
+    volumes:
+      - ./src:/app/src
+      - ./tests:/app/tests
+      - ./prisma:/app/prisma
+      - ./package.json:/app/package.json
+      - ./tsconfig.json:/app/tsconfig.json
+      - node_modules_dev:/app/node_modules
+    command: pnpm run dev
+    networks:
+      - squadmakers-dev-network
+    healthcheck:
+      test: ['CMD', 'wget', '--quiet', '--tries=1', '--spider', 'http://localhost:3000/health']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  postgres_dev_data:
+    driver: local
+  node_modules_dev:
+    driver: local
+
+networks:
+  squadmakers-dev-network:
+    driver: bridge

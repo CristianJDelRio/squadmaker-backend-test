@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: squadmakers-postgres-ci
+    environment:
+      POSTGRES_USER: ci_user
+      POSTGRES_PASSWORD: ci_password
+      POSTGRES_DB: squadmakers_ci_db
+    ports:
+      - '5433:5432'  # Different port to avoid conflicts with dev
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ci_user -d squadmakers_ci_db']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - squadmakers-ci-network
+    tmpfs:
+      - /var/lib/postgresql/data  # Use tmpfs for faster CI tests (data is ephemeral)
+
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.ci
+    container_name: squadmakers-test-ci
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env.ci
+    environment:
+      NODE_ENV: test
+      CI: "true"
+      DATABASE_URL: postgresql://ci_user:ci_password@postgres:5432/squadmakers_ci_db?schema=public
+      CHUCK_NORRIS_API_URL: https://api.chucknorris.io
+      DAD_JOKES_API_URL: https://icanhazdadjoke.com
+      LOG_LEVEL: warn
+    networks:
+      - squadmakers-ci-network
+    command: >
+      sh -c "
+        echo '⏳ Waiting for database...' &&
+        sleep 2 &&
+        echo '🔄 Running Prisma migrations...' &&
+        pnpm run db:generate &&
+        pnpm run db:migrate &&
+        echo '✅ Database ready!' &&
+        echo '🧪 Running tests...' &&
+        pnpm run test:coverage &&
+        echo '✅ Tests completed!'
+      "
+
+networks:
+  squadmakers-ci-network:
+    driver: bridge

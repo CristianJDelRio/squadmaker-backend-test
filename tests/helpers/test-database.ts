@@ -3,7 +3,6 @@ import { PrismaPg } from '@prisma/adapter-pg';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 
-// Load .env.test
 dotenv.config({ path: path.resolve(__dirname, '../../.env.test') });
 
 let testPrisma: PrismaClient | null = null;
