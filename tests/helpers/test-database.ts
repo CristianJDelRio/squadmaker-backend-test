@@ -40,7 +40,12 @@ export const cleanAllDatabase = async (prisma: PrismaClient): Promise<void> => {
   await prisma.user.deleteMany();
 };
 
-export const seedTestData = async (prisma: PrismaClient): Promise<{ user: { id: string; name: string }; category: { id: string; name: string } }> => {
+export const seedTestData = async (
+  prisma: PrismaClient
+): Promise<{
+  user: { id: string; name: string };
+  category: { id: string; name: string };
+}> => {
   const user = await prisma.user.upsert({
     where: { id: 'test-user-e2e' },
     update: {},

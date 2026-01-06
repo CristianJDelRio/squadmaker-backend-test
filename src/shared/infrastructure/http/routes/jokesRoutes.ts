@@ -7,7 +7,7 @@ import { CreateJoke } from '../../../../contexts/jokes/application/CreateJoke';
 import { GetJokes } from '../../../../contexts/jokes/application/GetJokes';
 import { UpdateJoke } from '../../../../contexts/jokes/application/UpdateJoke';
 import { DeleteJoke } from '../../../../contexts/jokes/application/DeleteJoke';
-import { FetchExternalJoke } from '../../../../contexts/jokes/application/use-cases/FetchExternalJoke';
+import { FetchExternalJoke } from '../../../../contexts/jokes/application/FetchExternalJoke';
 import { ChuckNorrisApiService } from '../../../../contexts/jokes/infrastructure/external-apis/ChuckNorrisApiService';
 import { DadJokesApiService } from '../../../../contexts/jokes/infrastructure/external-apis/DadJokesApiService';
 import {
