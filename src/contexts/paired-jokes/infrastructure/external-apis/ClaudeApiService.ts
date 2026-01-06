@@ -3,7 +3,7 @@ import { env } from '../../../../shared/infrastructure/config/env';
 
 export class ClaudeApiService {
   private readonly client: Anthropic;
-  private readonly model = 'claude-3-5-sonnet-20240620';
+  private readonly model = 'claude-sonnet-4-20250514';
   private readonly maxTokens = 300;
 
   constructor(apiKey?: string) {
@@ -51,7 +51,9 @@ Create a single, creative joke that cleverly combines both jokes. Be witty and c
       return textContent.text.trim();
     } catch (error) {
       if (error instanceof Anthropic.APIError) {
-        throw new Error(`Claude API Error: ${error.message}`);
+        throw new Error(
+          `Claude API Error: ${error.status} ${JSON.stringify(error.error)}`
+        );
       }
       throw error;
     }
