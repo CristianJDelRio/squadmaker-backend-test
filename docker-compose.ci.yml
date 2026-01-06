@@ -39,18 +39,20 @@ services:
       LOG_LEVEL: warn
     networks:
       - squadmakers-ci-network
-    command: >
-      sh -c "
-        echo '⏳ Waiting for database...' &&
-        sleep 2 &&
-        echo '🔄 Running Prisma migrations...' &&
-        pnpm run db:generate &&
-        pnpm run db:migrate &&
-        echo '✅ Database ready!' &&
-        echo '🧪 Running tests...' &&
-        pnpm run test:coverage &&
+    command:
+      - /bin/sh
+      - -c
+      - |
+        echo '⏳ Waiting for database...'
+        sleep 2
+        env | grep -i database || echo 'No DATABASE vars found'
+        echo '🔄 Running Prisma migrations...'
+        pnpm run db:generate
+        npx prisma migrate deploy
+        echo '✅ Database ready!'
+        echo '🧪 Running tests...'
+        pnpm run test:coverage
         echo '✅ Tests completed!'
-      "
 
 networks:
   squadmakers-ci-network:

@@ -1,8 +1,6 @@
 import request from 'supertest';
 import { Application } from 'express';
 import { PrismaClient } from '@prisma/client';
-import * as dotenv from 'dotenv';
-import * as path from 'path';
 import { Server } from '../../src/shared/infrastructure/http/Server';
 import { WinstonLogger } from '../../src/shared/infrastructure/logger/WinstonLogger';
 import {
@@ -17,11 +15,6 @@ import {
   CreateJokeRequest,
   UpdateJokeRequest,
 } from '../../src/shared/infrastructure/http/validation/jokeSchemas';
-
-dotenv.config({
-  path: path.resolve(__dirname, '../../.env.test'),
-  override: true,
-});
 
 describe('Jokes API E2E', () => {
   let app: Application;

@@ -1,6 +1,9 @@
 import dotenv from 'dotenv';
 
-dotenv.config();
+// Only load .env file when NOT in CI (CI uses environment variables from docker-compose)
+if (process.env.CI !== 'true') {
+  dotenv.config();
+}
 
 export const env = {
   nodeEnv: process.env.NODE_ENV || 'development',

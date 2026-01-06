@@ -1,4 +1,9 @@
-import 'dotenv/config';
+/* eslint-disable @typescript-eslint/no-require-imports */
+if (!process.env.CI) {
+  require('dotenv/config');
+}
+/* eslint-enable @typescript-eslint/no-require-imports */
+
 import { defineConfig, env } from 'prisma/config';
 
 export default defineConfig({

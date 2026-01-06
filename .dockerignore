@@ -27,10 +27,10 @@ README.md
 docs
 .project-context
 
-# Tests
-tests
-*.test.ts
-*.spec.ts
+# Tests (commented for CI builds - CI needs tests!)
+# tests
+# *.test.ts
+# *.spec.ts
 
 # Logs
 logs
