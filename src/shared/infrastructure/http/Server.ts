@@ -9,6 +9,7 @@ import { errorHandler } from './middlewares/errorHandler';
 import { requestLogger } from './middlewares/requestLogger';
 import { createHealthRoutes } from './routes/healthRoutes';
 import { createJokesRoutes } from './routes/jokesRoutes';
+import { createMathRoutes } from './routes/mathRoutes';
 import { swaggerSpec } from './swagger.config';
 
 export class Server {
@@ -49,6 +50,7 @@ export class Server {
   private setupRoutes(): void {
     this.app.use(createHealthRoutes());
     this.app.use('/api/v1/jokes', createJokesRoutes());
+    this.app.use('/api/v1/math', createMathRoutes());
   }
 
   public getApp(): Application {
