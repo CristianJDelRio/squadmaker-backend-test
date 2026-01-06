@@ -84,7 +84,9 @@ describe('Jokes API E2E', () => {
         .expect(400);
 
       expect(response.body).toHaveProperty('error');
-      expect(response.body.error).toContain('Invalid joke type');
+      expect(response.body.error).toContain(
+        'Invalid parameter. Must be a joke type (\"chuck\" or \"dad\") or a valid UUID'
+      );
     });
   });
 

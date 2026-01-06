@@ -1,4 +1,4 @@
-import { FetchExternalJoke } from '../../../../../../src/contexts/jokes/application/use-cases/FetchExternalJoke';
+import { FetchExternalJoke } from '../../../../../../src/contexts/jokes/application/FetchExternalJoke';
 import { ChuckNorrisApiService } from '../../../../../../src/contexts/jokes/infrastructure/external-apis/ChuckNorrisApiService';
 import { DadJokesApiService } from '../../../../../../src/contexts/jokes/infrastructure/external-apis/DadJokesApiService';
 import { ValidationError } from '../../../../../../src/contexts/shared/domain/errors/ValidationError';
