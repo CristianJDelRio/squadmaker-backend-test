@@ -3,9 +3,15 @@ import { ChuckNorrisApiService } from '../../../../../src/contexts/jokes/infrast
 import { DadJokesApiService } from '../../../../../src/contexts/jokes/infrastructure/external-apis/DadJokesApiService';
 import { ClaudeApiService } from '../../../../../src/contexts/paired-jokes/infrastructure/external-apis/ClaudeApiService';
 
-jest.mock('../../../../../src/contexts/jokes/infrastructure/external-apis/ChuckNorrisApiService');
-jest.mock('../../../../../src/contexts/jokes/infrastructure/external-apis/DadJokesApiService');
-jest.mock('../../../../../src/contexts/paired-jokes/infrastructure/external-apis/ClaudeApiService');
+jest.mock(
+  '../../../../../src/contexts/jokes/infrastructure/external-apis/ChuckNorrisApiService'
+);
+jest.mock(
+  '../../../../../src/contexts/jokes/infrastructure/external-apis/DadJokesApiService'
+);
+jest.mock(
+  '../../../../../src/contexts/paired-jokes/infrastructure/external-apis/ClaudeApiService'
+);
 
 describe('FetchPairedJokes Use Case', () => {
   let useCase: FetchPairedJokes;
@@ -16,7 +22,8 @@ describe('FetchPairedJokes Use Case', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
-    chuckService = new ChuckNorrisApiService() as jest.Mocked<ChuckNorrisApiService>;
+    chuckService =
+      new ChuckNorrisApiService() as jest.Mocked<ChuckNorrisApiService>;
     dadService = new DadJokesApiService() as jest.Mocked<DadJokesApiService>;
     claudeService = new ClaudeApiService() as jest.Mocked<ClaudeApiService>;
 
@@ -56,7 +63,10 @@ describe('FetchPairedJokes Use Case', () => {
       await useCase.execute();
 
       expect(claudeService.combineJokes).toHaveBeenCalledTimes(5);
-      expect(claudeService.combineJokes).toHaveBeenCalledWith('Chuck joke', 'Dad joke');
+      expect(claudeService.combineJokes).toHaveBeenCalledWith(
+        'Chuck joke',
+        'Dad joke'
+      );
     });
 
     it('should return array of 5 paired jokes', async () => {

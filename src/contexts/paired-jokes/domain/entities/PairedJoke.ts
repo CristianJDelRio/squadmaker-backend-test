@@ -26,11 +26,7 @@ export class PairedJoke {
       throw new ValidationError('Combined joke cannot be empty');
     }
 
-    return new PairedJoke(
-      props.chuckJoke,
-      props.dadJoke,
-      props.combined
-    );
+    return new PairedJoke(props.chuckJoke, props.dadJoke, props.combined);
   }
 
   toPrimitives(): { chuck: string; dad: string; combined: string } {

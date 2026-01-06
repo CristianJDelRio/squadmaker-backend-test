@@ -4,8 +4,10 @@ describe('PairedJoke Entity', () => {
   describe('create', () => {
     it('should create a paired joke with valid data', () => {
       const chuckJoke = 'Chuck Norris can divide by zero.';
-      const dadJoke = 'Why did the scarecrow win an award? He was outstanding in his field.';
-      const combined = 'Chuck Norris can divide by zero while being outstanding in his field.';
+      const dadJoke =
+        'Why did the scarecrow win an award? He was outstanding in his field.';
+      const combined =
+        'Chuck Norris can divide by zero while being outstanding in his field.';
 
       const pairedJoke = PairedJoke.create({
         chuckJoke,

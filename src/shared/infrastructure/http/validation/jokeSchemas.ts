@@ -16,22 +16,20 @@ export const GetJokesQuerySchema = z.object({
 });
 
 export const JokeTypeParamSchema = z.object({
-  type: z
-    .string()
-    .refine(
-      (val) => {
-        const isJokeType = ['chuck', 'dad', 'Chuck', 'Dad'].includes(val);
-        const isUUID =
-          /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
-            val
-          );
-        return isJokeType || isUUID;
-      },
-      {
-        message:
-          'Invalid parameter. Must be a joke type ("chuck" or "dad") or a valid UUID',
-      }
-    ),
+  type: z.string().refine(
+    (val) => {
+      const isJokeType = ['chuck', 'dad', 'Chuck', 'Dad'].includes(val);
+      const isUUID =
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+          val
+        );
+      return isJokeType || isUUID;
+    },
+    {
+      message:
+        'Invalid parameter. Must be a joke type ("chuck" or "dad") or a valid UUID',
+    }
+  ),
 });
 
 export type CreateJokeRequest = z.infer<typeof CreateJokeRequestSchema>;
