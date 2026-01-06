@@ -10,6 +10,8 @@ import { DeleteJoke } from '../../../../contexts/jokes/application/DeleteJoke';
 import { FetchExternalJoke } from '../../../../contexts/jokes/application/FetchExternalJoke';
 import { ChuckNorrisApiService } from '../../../../contexts/jokes/infrastructure/external-apis/ChuckNorrisApiService';
 import { DadJokesApiService } from '../../../../contexts/jokes/infrastructure/external-apis/DadJokesApiService';
+import { FetchPairedJokes } from '../../../../contexts/paired-jokes/application/FetchPairedJokes';
+import { ClaudeApiService } from '../../../../contexts/paired-jokes/infrastructure/external-apis/ClaudeApiService';
 import {
   CreateJokeRequestSchema,
   UpdateJokeRequestSchema,
@@ -30,6 +32,7 @@ export function createJokesRoutes(): Router {
 
   const chuckNorrisService = new ChuckNorrisApiService();
   const dadJokesService = new DadJokesApiService();
+  const claudeService = new ClaudeApiService();
 
   const createJoke = new CreateJoke(repository);
   const getJoke = new GetJoke(repository);
@@ -39,6 +42,11 @@ export function createJokesRoutes(): Router {
   const fetchExternalJoke = new FetchExternalJoke(
     chuckNorrisService,
     dadJokesService
+  );
+  const fetchPairedJokes = new FetchPairedJokes(
+    chuckNorrisService,
+    dadJokesService,
+    claudeService
   );
 
   /**
@@ -137,6 +145,52 @@ export function createJokesRoutes(): Router {
       return next(error);
     }
   });
+
+  /**
+   * @swagger
+   * /api/v1/jokes/paired:
+   *   get:
+   *     summary: Fetch 5 paired jokes
+   *     description: Fetches 5 Chuck Norris jokes and 5 Dad Jokes in parallel, then combines each pair using Claude AI
+   *     tags:
+   *       - Jokes
+   *     responses:
+   *       200:
+   *         description: Array of 5 paired jokes
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: array
+   *               items:
+   *                 type: object
+   *                 properties:
+   *                   chuck:
+   *                     type: string
+   *                     example: Chuck Norris can divide by zero.
+   *                   dad:
+   *                     type: string
+   *                     example: Why did the scarecrow win an award? He was outstanding in his field.
+   *                   combined:
+   *                     type: string
+   *                     example: Chuck Norris can divide by zero while being outstanding in his field.
+   *       500:
+   *         description: Error fetching or combining jokes
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Error'
+   */
+  router.get(
+    '/paired',
+    async (_req: Request, res: Response, next: NextFunction) => {
+      try {
+        const pairedJokes = await fetchPairedJokes.execute();
+        res.json(pairedJokes.map((joke) => joke.toPrimitives()));
+      } catch (error) {
+        return next(error);
+      }
+    }
+  );
 
   /**
    * @swagger
