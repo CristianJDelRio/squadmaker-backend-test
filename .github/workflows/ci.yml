@@ -6,14 +6,17 @@ on:
   pull_request:
     branches: [main]
 
-jobs:
-  lint-and-test:
-    name: Lint & Unit Tests
-    runs-on: ubuntu-latest
+env:
+  NODE_VERSION: 20.x
+  PNPM_VERSION: 10
 
-    strategy:
-      matrix:
-        node-version: [20.x]
+jobs:
+  # ============================================
+  # Job 1: Lint & Unit Tests (fast feedback)
+  # ============================================
+  lint-and-test:
+    name: 🔍 Lint & Unit Tests
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -22,12 +25,12 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: ${{ env.PNPM_VERSION }}
 
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'pnpm'
 
       - name: Install dependencies
@@ -39,8 +42,11 @@ jobs:
       - name: Run unit tests
         run: pnpm run test:unit
 
+  # ============================================
+  # Job 2: Type Check & Build
+  # ============================================
   typecheck-and-build:
-    name: Type Check & Build
+    name: 🔨 Type Check & Build
     runs-on: ubuntu-latest
     needs: lint-and-test
 
@@ -51,12 +57,12 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'pnpm'
 
       - name: Install dependencies
@@ -76,3 +82,63 @@ jobs:
           test -d dist || (echo "❌ Build failed - dist directory not found" && exit 1)
           test -f dist/index.js || (echo "❌ Build failed - index.js not found" && exit 1)
           echo "✅ Build artifacts verified successfully"
+
+  # ============================================
+  # Job 3: Integration & E2E Tests (with Docker)
+  # ============================================
+  integration-tests:
+    name: 🐳 Integration & E2E Tests
+    runs-on: ubuntu-latest
+    needs: lint-and-test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Cache Docker layers
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Run Integration & E2E Tests
+        run: |
+          echo "🐳 Starting CI environment with Docker Compose..."
+          docker compose -f docker-compose.ci.yml up --build --abort-on-container-exit --exit-code-from test
+        env:
+          DOCKER_BUILDKIT: 1
+          COMPOSE_DOCKER_CLI_BUILD: 1
+
+      - name: Show container logs on failure
+        if: failure()
+        run: |
+          echo "📋 Showing container logs..."
+          docker compose -f docker-compose.ci.yml logs
+
+      - name: Cleanup Docker resources
+        if: always()
+        run: |
+          docker compose -f docker-compose.ci.yml down -v --remove-orphans
+
+  # ============================================
+  # Job 4: All Tests Passed (status check)
+  # ============================================
+  ci-success:
+    name: ✅ CI Success
+    runs-on: ubuntu-latest
+    needs: [lint-and-test, typecheck-and-build, integration-tests]
+    if: success()
+
+    steps:
+      - name: All checks passed
+        run: |
+          echo "🎉 All CI checks passed successfully!"
+          echo ""
+          echo "✅ Lint & Unit Tests"
+          echo "✅ Type Check & Build"
+          echo "✅ Integration & E2E Tests"
