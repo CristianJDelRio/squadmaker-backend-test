@@ -32,6 +32,32 @@ export const closeTestPrismaClient = async (): Promise<void> => {
 
 export const cleanDatabase = async (prisma: PrismaClient): Promise<void> => {
   await prisma.joke.deleteMany();
+};
+
+export const cleanAllDatabase = async (prisma: PrismaClient): Promise<void> => {
+  await prisma.joke.deleteMany();
   await prisma.category.deleteMany();
   await prisma.user.deleteMany();
+};
+
+export const seedTestData = async (prisma: PrismaClient): Promise<{ user: { id: string; name: string }; category: { id: string; name: string } }> => {
+  const user = await prisma.user.upsert({
+    where: { id: 'test-user-e2e' },
+    update: {},
+    create: {
+      id: 'test-user-e2e',
+      name: 'Test User E2E',
+    },
+  });
+
+  const category = await prisma.category.upsert({
+    where: { id: 'test-category-e2e' },
+    update: {},
+    create: {
+      id: 'test-category-e2e',
+      name: 'Test Category E2E',
+    },
+  });
+
+  return { user, category };
 };

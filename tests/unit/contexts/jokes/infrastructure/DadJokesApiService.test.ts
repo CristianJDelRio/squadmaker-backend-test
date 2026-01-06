@@ -26,7 +26,9 @@ describe('DadJokesApiService', () => {
 
       const result = await service.getRandomJoke();
 
-      expect(result).toBe('My dog used to chase people on a bike a lot. It got so bad I had to take his bike away.');
+      expect(result).toBe(
+        'My dog used to chase people on a bike a lot. It got so bad I had to take his bike away.'
+      );
       expect(mockedAxios.get).toHaveBeenCalledWith(
         'https://icanhazdadjoke.com',
         expect.objectContaining({
@@ -53,7 +55,9 @@ describe('DadJokesApiService', () => {
 
       const result = await service.getRandomJoke();
 
-      expect(result).toBe('Why did the scarecrow win an award? Because he was outstanding in his field.');
+      expect(result).toBe(
+        'Why did the scarecrow win an award? Because he was outstanding in his field.'
+      );
       expect(mockedAxios.get).toHaveBeenCalledTimes(2);
     });
 
@@ -67,8 +71,8 @@ describe('DadJokesApiService', () => {
     });
 
     it('should handle timeout errors', async () => {
-      const timeoutError = new Error('Timeout');
-      (timeoutError as any).code = 'ECONNABORTED';
+      const timeoutError = new Error('Timeout') as Error & { code: string };
+      timeoutError.code = 'ECONNABORTED';
       mockedAxios.get.mockRejectedValue(timeoutError);
 
       await expect(service.getRandomJoke()).rejects.toThrow(

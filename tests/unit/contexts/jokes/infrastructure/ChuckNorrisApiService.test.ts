@@ -19,7 +19,8 @@ describe('ChuckNorrisApiService', () => {
           icon_url: 'https://api.chucknorris.io/img/avatar/chuck-norris.png',
           id: '0wIjXd4ASTS5Kogij9NTFA',
           url: '',
-          value: 'Chuck Norris never went to karate class, he was born kicking butt.',
+          value:
+            'Chuck Norris never went to karate class, he was born kicking butt.',
         },
       };
 
@@ -27,7 +28,9 @@ describe('ChuckNorrisApiService', () => {
 
       const result = await service.getRandomJoke();
 
-      expect(result).toBe('Chuck Norris never went to karate class, he was born kicking butt.');
+      expect(result).toBe(
+        'Chuck Norris never went to karate class, he was born kicking butt.'
+      );
       expect(mockedAxios.get).toHaveBeenCalledWith(
         'https://api.chucknorris.io/jokes/random'
       );
@@ -64,8 +67,8 @@ describe('ChuckNorrisApiService', () => {
     });
 
     it('should handle timeout errors', async () => {
-      const timeoutError = new Error('Timeout');
-      (timeoutError as any).code = 'ECONNABORTED';
+      const timeoutError = new Error('Timeout') as Error & { code: string };
+      timeoutError.code = 'ECONNABORTED';
       mockedAxios.get.mockRejectedValue(timeoutError);
 
       await expect(service.getRandomJoke()).rejects.toThrow(

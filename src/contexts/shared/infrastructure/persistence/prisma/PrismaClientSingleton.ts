@@ -20,6 +20,10 @@ export const getPrismaClient = (): PrismaClient => {
   return prismaClient;
 };
 
+export const setPrismaClient = (client: PrismaClient): void => {
+  prismaClient = client;
+};
+
 export const closePrismaClient = async (): Promise<void> => {
   if (prismaClient) {
     await prismaClient.$disconnect();

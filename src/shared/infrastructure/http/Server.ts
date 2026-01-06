@@ -6,6 +6,7 @@ import rateLimit from 'express-rate-limit';
 import { Logger } from '../logger/Logger';
 import { errorHandler } from './middlewares/errorHandler';
 import { createHealthRoutes } from './routes/healthRoutes';
+import { createJokesRoutes } from './routes/jokesRoutes';
 
 export class Server {
   private app: Application;
@@ -14,6 +15,7 @@ export class Server {
     this.app = express();
     this.setupMiddlewares();
     this.setupRoutes();
+    this.setupErrorHandler();
   }
 
   private setupMiddlewares(): void {
@@ -32,6 +34,7 @@ export class Server {
 
   private setupRoutes(): void {
     this.app.use(createHealthRoutes());
+    this.app.use('/api/v1/jokes', createJokesRoutes());
   }
 
   public getApp(): Application {
