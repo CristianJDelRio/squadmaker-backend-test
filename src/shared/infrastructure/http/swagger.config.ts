@@ -37,6 +37,10 @@ const options: swaggerJsdoc.Options = {
         name: 'Jokes',
         description: 'Joke management endpoints',
       },
+      {
+        name: 'Math',
+        description: 'Mathematical operations endpoints',
+      },
     ],
     components: {
       schemas: {
