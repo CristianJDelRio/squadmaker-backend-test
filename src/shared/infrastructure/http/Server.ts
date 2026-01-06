@@ -3,10 +3,12 @@ import helmet from 'helmet';
 import cors from 'cors';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
+import swaggerUi from 'swagger-ui-express';
 import { Logger } from '../logger/Logger';
 import { errorHandler } from './middlewares/errorHandler';
 import { createHealthRoutes } from './routes/healthRoutes';
 import { createJokesRoutes } from './routes/jokesRoutes';
+import { swaggerSpec } from './swagger.config';
 
 export class Server {
   private app: Application;
@@ -14,6 +16,7 @@ export class Server {
   constructor(private readonly logger: Logger) {
     this.app = express();
     this.setupMiddlewares();
+    this.setupSwagger();
     this.setupRoutes();
     this.setupErrorHandler();
   }
@@ -30,6 +33,14 @@ export class Server {
       max: 100,
     });
     this.app.use(limiter);
+  }
+
+  private setupSwagger(): void {
+    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+    this.app.get('/api-docs/swagger.json', (_req, res) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.send(swaggerSpec);
+    });
   }
 
   private setupRoutes(): void {
