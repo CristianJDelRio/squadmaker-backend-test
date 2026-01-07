@@ -10,6 +10,7 @@ import { requestLogger } from './middlewares/requestLogger';
 import { createHealthRoutes } from './routes/healthRoutes';
 import { createJokesRoutes } from './routes/jokesRoutes';
 import { createMathRoutes } from './routes/mathRoutes';
+import { createAuthRoutes } from '../../../contexts/auth/infrastructure/http/authRoutes';
 import { swaggerSpec } from './swagger.config';
 
 export class Server {
@@ -49,6 +50,9 @@ export class Server {
 
   private setupRoutes(): void {
     this.app.use(createHealthRoutes());
+    const authRoutes = createAuthRoutes();
+    this.app.use('/auth', authRoutes);
+    this.app.use('/api', authRoutes);
     this.app.use('/api/v1/jokes', createJokesRoutes());
     this.app.use('/api/v1/math', createMathRoutes());
   }

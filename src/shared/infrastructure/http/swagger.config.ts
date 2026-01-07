@@ -34,6 +34,10 @@ const options: swaggerJsdoc.Options = {
         description: 'Health check endpoints',
       },
       {
+        name: 'Authentication',
+        description: 'JWT authentication and authorization endpoints',
+      },
+      {
         name: 'Jokes',
         description: 'Joke management endpoints',
       },

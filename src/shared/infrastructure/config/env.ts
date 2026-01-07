@@ -16,4 +16,8 @@ export const env = {
     process.env.CHUCK_NORRIS_API_URL || 'https://api.chucknorris.io',
   dadJokesApiUrl: process.env.DAD_JOKES_API_URL || 'https://icanhazdadjoke.com',
   anthropicApiKey: process.env.ANTHROPIC_API_KEY || '',
+  jwtSecret:
+    process.env.JWT_SECRET ||
+    'dev-secret-key-change-in-production-min-32-chars',
+  jwtExpiresIn: process.env.JWT_EXPIRES_IN || '24h',
 };
