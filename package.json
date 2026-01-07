@@ -101,5 +101,11 @@
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }

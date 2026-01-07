@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+
+# Run lint-staged (lint only staged files)
+echo "📝 Checking lint on staged files..."
+pnpm lint-staged
+
+# Run unit tests
+echo "🧪 Running unit tests..."
+pnpm test:unit
+
+echo "✅ All pre-commit checks passed!"
+
