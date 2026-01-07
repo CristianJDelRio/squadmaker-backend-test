@@ -51,7 +51,7 @@ services:
       - ./package.json:/app/package.json
       - ./tsconfig.json:/app/tsconfig.json
       - node_modules_dev:/app/node_modules
-    command: pnpm run dev
+    command: sh -c "npx prisma migrate deploy && npx prisma db seed && pnpm run dev"
     networks:
       - squadmakers-dev-network
     healthcheck:

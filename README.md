@@ -55,62 +55,78 @@ A professional REST API for joke management built with **Hexagonal Architecture*
 ## 📦 Installation
 
 ### Prerequisites
-- Node.js 20+
-- pnpm 10.27.0+
-- Docker & Docker Compose (for local development)
-- PostgreSQL 15+ (or use Docker)
+- Docker & Docker Compose
+- pnpm 10.27.0+ (only if running without Docker)
 
-### Quick Start
+### Quick Start (Docker - Recommended) 🐳
 
-1. **Clone the repository**
+The fastest way to get started - **just 2 commands**:
+
+```bash
+# 1. Clone and enter the project
+git clone <repository-url>
+cd squadmaker-test
+
+# 2. Start everything with Docker
+pnpm run docker:dev:up
+```
+
+That's it! 🚀 
+
+**What happens automatically:**
+1. ✅ PostgreSQL 15 starts and waits for healthcheck
+2. ✅ Database migrations run (`prisma migrate deploy`)
+3. ✅ Seed data is created (4 users, 3 categories, 36 jokes)
+4. ✅ Development server starts with hot reload
+
+**Available URLs:**
+| URL | Description |
+|-----|-------------|
+| http://localhost:3000 | API Base URL |
+| http://localhost:3000/api-docs | Swagger Interactive Docs |
+| http://localhost:3000/health | Health Check |
+| http://localhost:3000/api/v1/jokes | List all jokes (36 seeded) |
+
+**Useful commands:**
+```bash
+pnpm run docker:dev:up      # Start everything
+pnpm run docker:dev:down    # Stop everything
+pnpm run docker:dev:logs    # View logs
+pnpm run docker:dev:rebuild # Rebuild from scratch
+```
+
+### Quick Start (Without Docker)
+
+If you prefer to run locally without Docker:
+
+1. **Clone and install**
 ```bash
 git clone <repository-url>
 cd squadmaker-test
-```
-
-2. **Install dependencies**
-```bash
 pnpm install
 ```
 
-3. **Setup environment variables**
+2. **Setup environment**
 ```bash
 cp .env.example .env
 ```
 
-Edit `.env` with your configuration:
+Edit `.env` with your PostgreSQL connection:
 ```env
-DATABASE_URL="postgresql://squadmakers_user:squadmakers_password@localhost:5432/squadmakers_db"
+DATABASE_URL="postgresql://user:password@localhost:5432/squadmakers_db"
 NODE_ENV="development"
 PORT=3000
-LOG_LEVEL="info"
-
-# External APIs
+LOG_LEVEL="debug"
 CHUCK_NORRIS_API_URL="https://api.chucknorris.io"
 DAD_JOKES_API_URL="https://icanhazdadjoke.com"
-
-# Optional: Claude API for AI-powered joke fusion
-ANTHROPIC_API_KEY="your-api-key-here"
+# Optional: ANTHROPIC_API_KEY="your-api-key-here"
 ```
 
-4. **Start PostgreSQL with Docker**
+3. **Setup database and run**
 ```bash
-pnpm run docker:dev:up
-```
-
-5. **Run database migrations**
-```bash
-pnpm run db:migrate
-```
-
-6. **Seed the database** (optional - creates test data)
-```bash
-pnpm run db:seed
-```
-
-7. **Start the development server**
-```bash
-pnpm run dev
+pnpm run db:migrate    # Run migrations
+pnpm run db:seed       # Seed test data
+pnpm run dev           # Start server
 ```
 
 The API will be available at `http://localhost:3000`
@@ -128,6 +144,44 @@ pnpm run test:unit           # Unit tests only
 pnpm run test:integration    # Integration tests only
 pnpm run test:e2e           # E2E tests only
 pnpm run test:coverage      # Coverage report
+```
+
+### Test Environment Setup
+
+**Unit tests** run without any external dependencies.
+
+**Integration & E2E tests** require a running PostgreSQL database. You have two options:
+
+**Option 1: Use Docker (Recommended)**
+```bash
+# Start the development environment (includes test database)
+pnpm run docker:dev:up
+
+# Run tests (in another terminal)
+pnpm run test:integration
+pnpm run test:e2e
+```
+
+**Option 2: Manual setup**
+
+Create a `.env.test` file with your test database connection:
+```bash
+cp .env.example .env.test
+```
+
+Edit `.env.test`:
+```env
+DATABASE_URL="postgresql://squadmakers_user:squadmakers_dev_password@localhost:5432/squadmakers_db_test"
+NODE_ENV="test"
+PORT=3001
+LOG_LEVEL="error"
+CHUCK_NORRIS_API_URL="https://api.chucknorris.io"
+DAD_JOKES_API_URL="https://icanhazdadjoke.com"
+```
+
+Then run migrations for the test database:
+```bash
+pnpm run db:migrate:test
 ```
 
 ### Test Results
