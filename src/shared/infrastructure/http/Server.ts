@@ -11,6 +11,7 @@ import { createHealthRoutes } from './routes/healthRoutes';
 import { createJokesRoutes } from './routes/jokesRoutes';
 import { createMathRoutes } from './routes/mathRoutes';
 import { createAuthRoutes } from '../../../contexts/auth/infrastructure/http/authRoutes';
+import { createNotificationRoutes } from '../../../contexts/notifications/infrastructure/http/notificationRoutes';
 import { swaggerSpec } from './swagger.config';
 
 export class Server {
@@ -55,6 +56,7 @@ export class Server {
     this.app.use('/api', authRoutes);
     this.app.use('/api/v1/jokes', createJokesRoutes());
     this.app.use('/api/v1/math', createMathRoutes());
+    this.app.use('/api', createNotificationRoutes(this.logger));
   }
 
   public getApp(): Application {

@@ -45,6 +45,10 @@ const options: swaggerJsdoc.Options = {
         name: 'Math',
         description: 'Mathematical operations endpoints',
       },
+      {
+        name: 'Notifications',
+        description: 'Notification and alert endpoints',
+      },
     ],
     components: {
       schemas: {
@@ -208,6 +212,46 @@ const options: swaggerJsdoc.Options = {
               format: 'date-time',
               description: 'Current server timestamp',
               example: '2025-01-06T10:30:00.000Z',
+            },
+          },
+        },
+        SendAlertRequest: {
+          type: 'object',
+          required: ['recipient', 'message'],
+          properties: {
+            recipient: {
+              type: 'string',
+              minLength: 1,
+              description: 'Email or phone number of the recipient',
+              example: 'user@example.com',
+            },
+            message: {
+              type: 'string',
+              minLength: 1,
+              description: 'Alert message content',
+              example: 'System alert: server down',
+            },
+            channel: {
+              type: 'string',
+              enum: ['email', 'sms'],
+              default: 'email',
+              description: 'Notification channel to use',
+              example: 'email',
+            },
+          },
+        },
+        SendAlertResponse: {
+          type: 'object',
+          properties: {
+            success: {
+              type: 'boolean',
+              description: 'Indicates if the alert was sent successfully',
+              example: true,
+            },
+            message: {
+              type: 'string',
+              description: 'Response message',
+              example: 'Alert sent successfully',
             },
           },
         },
