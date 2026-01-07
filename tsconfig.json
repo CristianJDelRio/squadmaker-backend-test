@@ -20,7 +20,7 @@
 
     /* Emit */
     "outDir": "./dist",
-    "removeComments": true,
+    "removeComments": false,
     "sourceMap": true,
 
     /* Interop Constraints */
