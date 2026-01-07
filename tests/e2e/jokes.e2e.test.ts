@@ -214,6 +214,50 @@ describe('Jokes API E2E', () => {
 
       expect(Array.isArray(response.body)).toBe(true);
     });
+
+    it('should filter by userName (SQL query)', async () => {
+      const response = await request(app)
+        .get('/api/v1/jokes?userName=test-user-e2e')
+        .expect(200);
+
+      expect(Array.isArray(response.body)).toBe(true);
+    });
+
+    it('should filter by categoryName (SQL query)', async () => {
+      const response = await request(app)
+        .get('/api/v1/jokes?categoryName=test-category-e2e')
+        .expect(200);
+
+      expect(Array.isArray(response.body)).toBe(true);
+    });
+
+    it('should filter by userName and categoryName (SQL query)', async () => {
+      const response = await request(app)
+        .get(
+          '/api/v1/jokes?userName=test-user-e2e&categoryName=test-category-e2e'
+        )
+        .expect(200);
+
+      expect(Array.isArray(response.body)).toBe(true);
+    });
+
+    it('should return empty array for non-existent userName', async () => {
+      const response = await request(app)
+        .get('/api/v1/jokes?userName=non-existent-user')
+        .expect(200);
+
+      expect(Array.isArray(response.body)).toBe(true);
+      expect(response.body.length).toBe(0);
+    });
+
+    it('should return empty array for non-existent categoryName', async () => {
+      const response = await request(app)
+        .get('/api/v1/jokes?categoryName=non-existent-category')
+        .expect(200);
+
+      expect(Array.isArray(response.body)).toBe(true);
+      expect(response.body.length).toBe(0);
+    });
   });
 
   describe('PUT /api/v1/jokes/:id', () => {

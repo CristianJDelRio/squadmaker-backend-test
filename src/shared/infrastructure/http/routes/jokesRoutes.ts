@@ -4,7 +4,7 @@ import { PrismaJokeRepository } from '../../../../contexts/jokes/infrastructure/
 import { getPrismaClient } from '../../../../contexts/shared/infrastructure/persistence/prisma/PrismaClientSingleton';
 import { CreateJoke } from '../../../../contexts/jokes/application/CreateJoke';
 import { GetJoke } from '../../../../contexts/jokes/application/GetJoke';
-import { GetJokes } from '../../../../contexts/jokes/application/GetJokes';
+import { GetJokesByQuery } from '../../../../contexts/jokes/application/GetJokesByQuery';
 import { UpdateJoke } from '../../../../contexts/jokes/application/UpdateJoke';
 import { DeleteJoke } from '../../../../contexts/jokes/application/DeleteJoke';
 import { FetchExternalJoke } from '../../../../contexts/jokes/application/FetchExternalJoke';
@@ -36,7 +36,7 @@ export function createJokesRoutes(): Router {
 
   const createJoke = new CreateJoke(repository);
   const getJoke = new GetJoke(repository);
-  const getJokes = new GetJokes(repository);
+  const getJokesByQuery = new GetJokesByQuery(repository);
   const updateJoke = new UpdateJoke(repository);
   const deleteJoke = new DeleteJoke(repository);
   const fetchExternalJoke = new FetchExternalJoke(
@@ -96,8 +96,14 @@ export function createJokesRoutes(): Router {
    * @swagger
    * /api/v1/jokes:
    *   get:
-   *     summary: List all jokes
-   *     description: Retrieves a list of jokes with optional filtering by userId and categoryId
+   *     summary: List and query jokes
+   *     description: |
+   *       Retrieves a list of jokes with optional filtering by userId, categoryId, userName, or categoryName.
+   *
+   *       **SQL Query Examples:**
+   *       - Query 1: Get all jokes created by user "manolito" → `?userName=manolito`
+   *       - Query 2: Get all jokes from category "humor negro" → `?categoryName=humor negro`
+   *       - Query 3: Get all jokes from "humor negro" by "manolito" → `?userName=manolito&categoryName=humor negro`
    *     tags:
    *       - Jokes
    *     parameters:
@@ -106,15 +112,27 @@ export function createJokesRoutes(): Router {
    *         schema:
    *           type: string
    *           format: uuid
-   *         description: Filter jokes by user ID
+   *         description: Filter jokes by user ID (UUID)
    *         example: '123e4567-e89b-12d3-a456-426614174000'
    *       - in: query
    *         name: categoryId
    *         schema:
    *           type: string
    *           format: uuid
-   *         description: Filter jokes by category ID
+   *         description: Filter jokes by category ID (UUID)
    *         example: '987fcdeb-51a2-43f7-b890-123456789abc'
+   *       - in: query
+   *         name: userName
+   *         schema:
+   *           type: string
+   *         description: Filter jokes by user name (SQL query by name)
+   *         example: 'manolito'
+   *       - in: query
+   *         name: categoryName
+   *         schema:
+   *           type: string
+   *         description: Filter jokes by category name (SQL query by name)
+   *         example: 'humor negro'
    *     responses:
    *       200:
    *         description: List of jokes retrieved successfully
@@ -124,6 +142,43 @@ export function createJokesRoutes(): Router {
    *               type: array
    *               items:
    *                 $ref: '#/components/schemas/Joke'
+   *             examples:
+   *               allJokes:
+   *                 summary: All jokes (no filters)
+   *                 value:
+   *                   - id: "550e8400-e29b-41d4-a716-446655440000"
+   *                     text: "Why did the chicken cross the road?"
+   *                     userId: "123e4567-e89b-12d3-a456-426614174000"
+   *                     categoryId: "987fcdeb-51a2-43f7-b890-123456789abc"
+   *                     createdAt: "2025-01-06T10:30:00.000Z"
+   *                     updatedAt: "2025-01-06T10:30:00.000Z"
+   *               byUserName:
+   *                 summary: Query 1 - Jokes by user "manolito"
+   *                 value:
+   *                   - id: "550e8400-e29b-41d4-a716-446655440001"
+   *                     text: "Chiste 1 de manolito"
+   *                     userId: "user-manolito-id"
+   *                     categoryId: "cat-humor-negro-id"
+   *                     createdAt: "2025-01-06T10:30:00.000Z"
+   *                     updatedAt: "2025-01-06T10:30:00.000Z"
+   *               byCategoryName:
+   *                 summary: Query 2 - Jokes from "humor negro"
+   *                 value:
+   *                   - id: "550e8400-e29b-41d4-a716-446655440002"
+   *                     text: "Chiste de humor negro"
+   *                     userId: "user-id-123"
+   *                     categoryId: "cat-humor-negro-id"
+   *                     createdAt: "2025-01-06T10:30:00.000Z"
+   *                     updatedAt: "2025-01-06T10:30:00.000Z"
+   *               byUserAndCategory:
+   *                 summary: Query 3 - "humor negro" jokes by "manolito"
+   *                 value:
+   *                   - id: "550e8400-e29b-41d4-a716-446655440003"
+   *                     text: "Chiste de humor negro por manolito"
+   *                     userId: "user-manolito-id"
+   *                     categoryId: "cat-humor-negro-id"
+   *                     createdAt: "2025-01-06T10:30:00.000Z"
+   *                     updatedAt: "2025-01-06T10:30:00.000Z"
    *       400:
    *         description: Validation error in query parameters
    *         content:
@@ -134,7 +189,7 @@ export function createJokesRoutes(): Router {
   router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
       const validatedQuery = GetJokesQuerySchema.parse(req.query);
-      const jokes = await getJokes.execute(validatedQuery);
+      const jokes = await getJokesByQuery.execute(validatedQuery);
       res.json(jokes.map((joke) => joke.toPrimitives()));
     } catch (error) {
       if (error instanceof ZodError) {

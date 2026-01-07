@@ -264,4 +264,120 @@ describe('PrismaJokeRepository - Integration Tests', () => {
       );
     });
   });
+
+  describe('findByUserName', () => {
+    it('should return jokes by user name', async () => {
+      await prisma.joke.createMany({
+        data: [
+          {
+            id: 'test-joke-11',
+            text: 'Joke by test-user-integration',
+            userId: testUserId,
+            categoryId: testCategoryId,
+          },
+          {
+            id: 'test-joke-12',
+            text: 'Another joke by test-user-integration',
+            userId: testUserId,
+            categoryId: testCategoryId,
+          },
+        ],
+      });
+
+      const jokes = await repository.findByUserName('test-user-integration');
+
+      expect(jokes.length).toBe(2);
+      expect(jokes.every((j) => j.userId.value === testUserId)).toBe(true);
+    });
+
+    it('should return empty array when user not found', async () => {
+      const jokes = await repository.findByUserName('non-existent-user');
+
+      expect(jokes).toEqual([]);
+    });
+  });
+
+  describe('findByCategoryName', () => {
+    it('should return jokes by category name', async () => {
+      await prisma.joke.create({
+        data: {
+          id: 'test-joke-13',
+          text: 'Joke in test-category-integration',
+          userId: testUserId,
+          categoryId: testCategoryId,
+        },
+      });
+
+      const jokes = await repository.findByCategoryName(
+        'test-category-integration'
+      );
+
+      expect(jokes.length).toBeGreaterThanOrEqual(1);
+      expect(jokes.every((j) => j.categoryId.value === testCategoryId)).toBe(
+        true
+      );
+    });
+
+    it('should return empty array when category not found', async () => {
+      const jokes = await repository.findByCategoryName(
+        'non-existent-category'
+      );
+
+      expect(jokes).toEqual([]);
+    });
+  });
+
+  describe('findByUserNameAndCategoryName', () => {
+    it('should return jokes filtered by user name and category name', async () => {
+      await prisma.joke.create({
+        data: {
+          id: 'test-joke-14',
+          text: 'Filtered joke by names',
+          userId: testUserId,
+          categoryId: testCategoryId,
+        },
+      });
+
+      const jokes = await repository.findByUserNameAndCategoryName(
+        'test-user-integration',
+        'test-category-integration'
+      );
+
+      expect(jokes.length).toBeGreaterThanOrEqual(1);
+      expect(
+        jokes.every(
+          (j) =>
+            j.userId.value === testUserId &&
+            j.categoryId.value === testCategoryId
+        )
+      ).toBe(true);
+    });
+
+    it('should return empty array when user not found', async () => {
+      const jokes = await repository.findByUserNameAndCategoryName(
+        'non-existent-user',
+        'test-category-integration'
+      );
+
+      expect(jokes).toEqual([]);
+    });
+
+    it('should return empty array when category not found', async () => {
+      const jokes = await repository.findByUserNameAndCategoryName(
+        'test-user-integration',
+        'non-existent-category'
+      );
+
+      expect(jokes).toEqual([]);
+    });
+
+    it('should return empty array when both not found', async () => {
+      const jokes = await repository.findByUserNameAndCategoryName(
+        'non-existent-user',
+        'non-existent-category'
+      );
+
+      expect(jokes).toEqual([]);
+    });
+  });
 });

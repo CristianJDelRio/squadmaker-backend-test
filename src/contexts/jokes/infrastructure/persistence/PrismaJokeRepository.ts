@@ -162,4 +162,82 @@ export class PrismaJokeRepository implements JokeRepository {
       throw error;
     }
   }
+
+  async findByUserName(userName: string): Promise<Joke[]> {
+    const jokesData = await this.prisma.joke.findMany({
+      where: {
+        user: {
+          name: userName,
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return jokesData.map((jokeData) =>
+      Joke.create({
+        id: jokeData.id,
+        text: jokeData.text,
+        userId: jokeData.userId,
+        categoryId: jokeData.categoryId,
+        createdAt: jokeData.createdAt,
+        updatedAt: jokeData.updatedAt,
+      })
+    );
+  }
+
+  async findByCategoryName(categoryName: string): Promise<Joke[]> {
+    const jokesData = await this.prisma.joke.findMany({
+      where: {
+        category: {
+          name: categoryName,
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return jokesData.map((jokeData) =>
+      Joke.create({
+        id: jokeData.id,
+        text: jokeData.text,
+        userId: jokeData.userId,
+        categoryId: jokeData.categoryId,
+        createdAt: jokeData.createdAt,
+        updatedAt: jokeData.updatedAt,
+      })
+    );
+  }
+
+  async findByUserNameAndCategoryName(
+    userName: string,
+    categoryName: string
+  ): Promise<Joke[]> {
+    const jokesData = await this.prisma.joke.findMany({
+      where: {
+        user: {
+          name: userName,
+        },
+        category: {
+          name: categoryName,
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return jokesData.map((jokeData) =>
+      Joke.create({
+        id: jokeData.id,
+        text: jokeData.text,
+        userId: jokeData.userId,
+        categoryId: jokeData.categoryId,
+        createdAt: jokeData.createdAt,
+        updatedAt: jokeData.updatedAt,
+      })
+    );
+  }
 }

@@ -18,6 +18,9 @@ describe('UpdateJoke Use Case', () => {
       findByUserIdAndCategoryId: jest.fn(),
       delete: jest.fn(),
       update: jest.fn(),
+      findByUserName: jest.fn(),
+      findByCategoryName: jest.fn(),
+      findByUserNameAndCategoryName: jest.fn(),
     };
 
     updateJoke = new UpdateJoke(mockRepository);

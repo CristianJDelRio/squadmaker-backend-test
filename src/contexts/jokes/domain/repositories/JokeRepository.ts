@@ -10,6 +10,12 @@ export interface JokeRepository {
     userId: string,
     categoryId: string
   ): Promise<Joke[]>;
+  findByUserName(userName: string): Promise<Joke[]>;
+  findByCategoryName(categoryName: string): Promise<Joke[]>;
+  findByUserNameAndCategoryName(
+    userName: string,
+    categoryName: string
+  ): Promise<Joke[]>;
   delete(id: string): Promise<void>;
   update(joke: Joke): Promise<void>;
 }

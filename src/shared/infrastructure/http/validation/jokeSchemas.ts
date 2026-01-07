@@ -13,6 +13,8 @@ export const UpdateJokeRequestSchema = z.object({
 export const GetJokesQuerySchema = z.object({
   userId: z.string().optional(),
   categoryId: z.string().optional(),
+  userName: z.string().optional(),
+  categoryName: z.string().optional(),
 });
 
 export const JokeTypeParamSchema = z.object({
