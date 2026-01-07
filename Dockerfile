@@ -15,26 +15,29 @@ RUN DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy" pnpm db:generat
 
 RUN pnpm build
 
-FROM node:20-alpine AS production
+# Prune dev dependencies, keeping only production deps
+RUN pnpm prune --prod --ignore-scripts
 
-RUN corepack enable && corepack prepare pnpm@latest --activate
+FROM node:20-alpine AS production
 
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
+# Copy package files
+COPY --from=builder /app/package.json ./package.json
 
-RUN pnpm install --prod --frozen-lockfile --ignore-scripts
+# Copy pruned node_modules (production only)
+COPY --from=builder /app/node_modules ./node_modules
 
+# Copy built application
 COPY --from=builder /app/dist ./dist
+
+# Copy Prisma files for migrations
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
-# Copy Prisma packages from builder (client + CLI for migrations)
-COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
-COPY --from=builder /app/node_modules/prisma ./node_modules/prisma
 
 EXPOSE 3000
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD node -e "require('http').get('http://localhost:3000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
 
-CMD ["sh", "-c", "node ./node_modules/prisma/build/index.js migrate deploy && node dist/index.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy && node dist/index.js"]
