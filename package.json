@@ -30,12 +30,9 @@
     "docker:dev:down": "docker-compose -f docker-compose.dev.yml down",
     "docker:dev:logs": "docker-compose -f docker-compose.dev.yml logs -f",
     "docker:dev:rebuild": "docker-compose -f docker-compose.dev.yml up --build --force-recreate",
-    "docker:prod:up": "docker-compose -f docker-compose.prod.yml up -d",
-    "docker:prod:down": "docker-compose -f docker-compose.prod.yml down",
     "docker:ci:up": "docker-compose -f docker-compose.ci.yml up --build",
     "docker:ci:down": "docker-compose -f docker-compose.ci.yml down",
-    "docker:up": "docker-compose up -d",
-    "docker:down": "docker-compose down",
+    "docker:build": "docker build -t squadmakers-api .",
     "prepare": "husky install"
   },
   "keywords": [
