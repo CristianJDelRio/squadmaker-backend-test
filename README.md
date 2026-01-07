@@ -242,48 +242,75 @@ Response:
 
 ## 📊 SQL Query Examples
 
-The API supports SQL queries to filter jokes by user name and category name:
+As part of the technical challenge requirements, the following SQL queries were requested:
 
-### Query 1: Get all jokes by user "Manolito"
+1. Get all jokes created by user "Manolito"
+2. Get all jokes from category "Humor negro"
+3. Get all jokes from "Humor negro" created by user "Manolito"
+
+Instead of implementing these as separate database queries, I decided to **integrate them as REST API functionality** with proper filtering capabilities, making them more accessible and maintainable.
+
+### REST API Endpoints
+
+#### Query 1: Get all jokes by user "Manolito"
 ```http
 GET /api/v1/jokes?userName=manolito
 ```
 
-### Query 2: Get all jokes from category "Humor negro"
+#### Query 2: Get all jokes from category "Humor negro"
 ```http
 GET /api/v1/jokes?categoryName=humor%20negro
 ```
 
-### Query 3: Get jokes from "Humor negro" by "Manolito"
+#### Query 3: Get jokes from "Humor negro" by "Manolito"
 ```http
 GET /api/v1/jokes?userName=manolito&categoryName=humor%20negro
 ```
 
-### SQL Equivalents
+### Direct PostgreSQL Queries
 
-These queries use Prisma's relational filtering, which translates to the following SQL:
+If you prefer to run these queries directly in PostgreSQL:
 
-**Query 1: Jokes by user name**
+**Query 1: Saca todos los chistes creados por el usuario "Manolito"**
 ```sql
-SELECT j.*
+SELECT
+  j.id,
+  j.text,
+  u.name as user_name,
+  c.name as category_name,
+  j."createdAt",
+  j."updatedAt"
 FROM jokes j
 INNER JOIN users u ON j."userId" = u.id
 WHERE u.name = 'manolito'
 ORDER BY j."createdAt" DESC;
 ```
 
-**Query 2: Jokes by category name**
+**Query 2: Saca todos los chistes de la temática "Humor negro"**
 ```sql
-SELECT j.*
+SELECT
+  j.id,
+  j.text,
+  u.name as user_name,
+  c.name as category_name,
+  j."createdAt",
+  j."updatedAt"
 FROM jokes j
+INNER JOIN users u ON j."userId" = u.id
 INNER JOIN categories c ON j."categoryId" = c.id
 WHERE c.name = 'humor negro'
 ORDER BY j."createdAt" DESC;
 ```
 
-**Query 3: Jokes by user and category names**
+**Query 3: Saca todos los chistes de la temática "Humor negro" creados por el usuario "Manolito"**
 ```sql
-SELECT j.*
+SELECT
+  j.id,
+  j.text,
+  u.name as user_name,
+  c.name as category_name,
+  j."createdAt",
+  j."updatedAt"
 FROM jokes j
 INNER JOIN users u ON j."userId" = u.id
 INNER JOIN categories c ON j."categoryId" = c.id
@@ -291,6 +318,19 @@ WHERE u.name = 'manolito'
   AND c.name = 'humor negro'
 ORDER BY j."createdAt" DESC;
 ```
+
+**Connect to PostgreSQL:**
+```bash
+# Using Docker
+docker exec -it squadmakers-postgres-dev psql -U squadmakers_user -d squadmakers_db
+
+# Or using pnpm with Prisma Studio
+pnpm run db:studio
+```
+
+### How It Works (Prisma Implementation)
+
+These queries use Prisma's relational filtering, which internally generates optimized SQL with INNER JOINs to filter by related entity names rather than just IDs.
 
 ## 🗄️ Database Seeding
 
@@ -623,7 +663,7 @@ While this project demonstrates production-ready architecture and best practices
   - Move infrequent endpoints to AWS Lambda or similar
   - Pay only for actual usage
 
-Most of these improvements were intentionally skipped to focus on demonstrating:
+I intentionally skipped most of these improvements to focus on demonstrating:
 - Clean architecture principles
 - Test-driven development
 - Production deployment
