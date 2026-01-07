@@ -57,7 +57,7 @@ describe('PrismaJokeRepository - Unit Tests', () => {
   });
 
   describe('update', () => {
-    const createTestJoke = () =>
+    const createTestJoke = (): Joke =>
       Joke.create({
         id: 'test-id',
         text: 'Test joke text',
@@ -108,4 +108,3 @@ describe('PrismaJokeRepository - Unit Tests', () => {
     });
   });
 });
-

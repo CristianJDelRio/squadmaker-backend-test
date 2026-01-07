@@ -25,7 +25,9 @@ describe('CategoryId', () => {
 
     it('should throw ValidationError when value is only whitespace', () => {
       expect(() => new CategoryId('   ')).toThrow(ValidationError);
-      expect(() => new CategoryId('   ')).toThrow('Category ID cannot be empty');
+      expect(() => new CategoryId('   ')).toThrow(
+        'Category ID cannot be empty'
+      );
     });
 
     it('should throw ValidationError when value is null-like', () => {
@@ -60,7 +62,9 @@ describe('CategoryId', () => {
       const categoryId1 = new CategoryId('symmetric-id');
       const categoryId2 = new CategoryId('symmetric-id');
 
-      expect(categoryId1.equals(categoryId2)).toBe(categoryId2.equals(categoryId1));
+      expect(categoryId1.equals(categoryId2)).toBe(
+        categoryId2.equals(categoryId1)
+      );
     });
   });
 
@@ -78,4 +82,3 @@ describe('CategoryId', () => {
     });
   });
 });
-
