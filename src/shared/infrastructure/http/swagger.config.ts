@@ -24,7 +24,7 @@ const options: swaggerJsdoc.Options = {
         description: 'Development server',
       },
       {
-        url: 'https://api.squadmaker.com',
+        url: 'https://squadmaker-backend-test-production.up.railway.app',
         description: 'Production server',
       },
     ],
