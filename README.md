@@ -1,117 +1,119 @@
-# Squadmaker REST API - Technical Challenge
+# Squadmaker REST API - Prueba Técnica
 
-A professional REST API for joke management built with **Hexagonal Architecture**, **TDD**, and **AI-powered features**. This project demonstrates advanced Node.js/TypeScript development practices with complete CI/CD pipeline and production deployment.
+🌐 Español | **[English](README.en.md)**
 
-## 🚀 Live Demo
+Una API REST profesional para gestión de chistes construida con **Arquitectura Hexagonal**, **TDD**, y **funcionalidades con IA**. Este proyecto demuestra prácticas avanzadas de desarrollo Node.js/TypeScript con pipeline CI/CD completo y despliegue en producción.
 
-- **Production API:** https://squadmaker-backend-test-production.up.railway.app
-- **Swagger Documentation:** https://squadmaker-backend-test-production.up.railway.app/api-docs
+## 🚀 Demo en Vivo
+
+- **API en Producción:** https://squadmaker-backend-test-production.up.railway.app
+- **Documentación Swagger:** https://squadmaker-backend-test-production.up.railway.app/api-docs
 - **Health Check:** https://squadmaker-backend-test-production.up.railway.app/health
 
-## ✨ Features
+## ✨ Características
 
-### Core Functionality
-- ✅ **Complete CRUD** for jokes (Create, Read, Update, Delete)
-- ✅ **External API Integration** (Chuck Norris API, Dad Jokes API)
-- ✅ **Mathematical Operations** (LCM calculation, number increment)
-- ✅ **AI-Powered Joke Fusion** using Claude API (Anthropic)
-- ✅ **SQL Queries** by user name and category name
-- ✅ **PostgreSQL Database** with Prisma ORM
-- ✅ **Interactive API Documentation** with Swagger/OpenAPI
+### Funcionalidades Principales
+- ✅ **CRUD Completo** para chistes (Crear, Leer, Actualizar, Eliminar)
+- ✅ **Integración con APIs Externas** (Chuck Norris API, Dad Jokes API)
+- ✅ **Operaciones Matemáticas** (Cálculo de MCM, incremento de números)
+- ✅ **Fusión de Chistes con IA** usando Claude API (Anthropic)
+- ✅ **Consultas SQL** por nombre de usuario y categoría
+- ✅ **Base de Datos PostgreSQL** con Prisma ORM
+- ✅ **Documentación Interactiva** con Swagger/OpenAPI
 
-### Technical Excellence
-- ✅ **Hexagonal Architecture** (Ports & Adapters)
-- ✅ **Strict TDD** (Test-Driven Development) with 388+ tests
-- ✅ **85%+ Code Coverage**
-- ✅ **CI/CD Pipeline** with GitHub Actions
-- ✅ **Docker** multi-environment setup (dev, CI, production)
-- ✅ **Production Deployment** on Railway
-- ✅ **TypeScript** strict mode
-- ✅ **ESLint + Prettier** with Husky pre-commit hooks
+### Excelencia Técnica
+- ✅ **Arquitectura Hexagonal** (Puertos y Adaptadores)
+- ✅ **TDD Estricto** (Test-Driven Development) con 388+ tests
+- ✅ **85%+ de Cobertura de Código**
+- ✅ **Pipeline CI/CD** con GitHub Actions
+- ✅ **Docker** multi-entorno (dev, CI, producción)
+- ✅ **Despliegue en Producción** en Railway
+- ✅ **TypeScript** en modo estricto
+- ✅ **ESLint + Prettier** con hooks pre-commit de Husky
 
-## 🛠️ Tech Stack
+## 🛠️ Stack Tecnológico
 
 ### Core
 - **Runtime:** Node.js 20+
-- **Language:** TypeScript (strict mode)
+- **Lenguaje:** TypeScript (modo estricto)
 - **Framework:** Express.js
-- **Database:** PostgreSQL 15+
+- **Base de Datos:** PostgreSQL 15+
 - **ORM:** Prisma 7
 - **Testing:** Jest + Supertest
-- **Validation:** Zod
+- **Validación:** Zod
 
-### DevOps & Tools
-- **Containerization:** Docker + Docker Compose
+### DevOps y Herramientas
+- **Contenedores:** Docker + Docker Compose
 - **CI/CD:** GitHub Actions
-- **Deployment:** Railway
-- **Documentation:** Swagger/OpenAPI (swagger-jsdoc + swagger-ui-express)
+- **Despliegue:** Railway
+- **Documentación:** Swagger/OpenAPI (swagger-jsdoc + swagger-ui-express)
 - **Logging:** Winston
-- **Code Quality:** ESLint, Prettier, Husky
+- **Calidad de Código:** ESLint, Prettier, Husky
 
-### External Services
-- **Joke APIs:** Chuck Norris API, icanhazdadjoke API
-- **AI Integration:** Anthropic Claude API (Sonnet 4.5)
+### Servicios Externos
+- **APIs de Chistes:** Chuck Norris API, icanhazdadjoke API
+- **Integración IA:** Anthropic Claude API (Sonnet 4.5)
 
-## 📦 Installation
+## 📦 Instalación
 
-### Prerequisites
+### Prerrequisitos
 - Docker & Docker Compose
-- pnpm 10.27.0+ (only if running without Docker)
+- pnpm 10.27.0+ (solo si ejecutas sin Docker)
 
-### Quick Start (Docker - Recommended) 🐳
+### Inicio Rápido (Docker - Recomendado) 🐳
 
-The fastest way to get started - **just 2 commands**:
+La forma más rápida de comenzar - **solo 2 comandos**:
 
 ```bash
-# 1. Clone and enter the project
+# 1. Clonar y entrar al proyecto
 git clone <repository-url>
 cd squadmaker-test
 
-# 2. Start everything with Docker
+# 2. Iniciar todo con Docker
 pnpm run docker:dev:up
 ```
 
-That's it! 🚀 
+¡Eso es todo! 🚀 
 
-**What happens automatically:**
-1. ✅ PostgreSQL 15 starts and waits for healthcheck
-2. ✅ Database migrations run (`prisma migrate deploy`)
-3. ✅ Seed data is created (4 users, 3 categories, 36 jokes)
-4. ✅ Development server starts with hot reload
+**Qué sucede automáticamente:**
+1. ✅ PostgreSQL 15 inicia y espera el healthcheck
+2. ✅ Las migraciones se ejecutan (`prisma migrate deploy`)
+3. ✅ Se crean los datos de prueba (4 usuarios, 3 categorías, 36 chistes)
+4. ✅ El servidor de desarrollo inicia con hot reload
 
-**Available URLs:**
-| URL | Description |
+**URLs Disponibles:**
+| URL | Descripción |
 |-----|-------------|
-| http://localhost:3000 | API Base URL |
-| http://localhost:3000/api-docs | Swagger Interactive Docs |
+| http://localhost:3000 | URL Base de la API |
+| http://localhost:3000/api-docs | Documentación Interactiva Swagger |
 | http://localhost:3000/health | Health Check |
-| http://localhost:3000/api/v1/jokes | List all jokes (36 seeded) |
+| http://localhost:3000/api/v1/jokes | Listar todos los chistes (36 creados) |
 
-**Useful commands:**
+**Comandos útiles:**
 ```bash
-pnpm run docker:dev:up      # Start everything
-pnpm run docker:dev:down    # Stop everything
-pnpm run docker:dev:logs    # View logs
-pnpm run docker:dev:rebuild # Rebuild from scratch
+pnpm run docker:dev:up      # Iniciar todo
+pnpm run docker:dev:down    # Detener todo
+pnpm run docker:dev:logs    # Ver logs
+pnpm run docker:dev:rebuild # Reconstruir desde cero
 ```
 
-### Quick Start (Without Docker)
+### Inicio Rápido (Sin Docker)
 
-If you prefer to run locally without Docker:
+Si prefieres ejecutar localmente sin Docker:
 
-1. **Clone and install**
+1. **Clonar e instalar**
 ```bash
 git clone <repository-url>
 cd squadmaker-test
 pnpm install
 ```
 
-2. **Setup environment**
+2. **Configurar entorno**
 ```bash
 cp .env.example .env
 ```
 
-Edit `.env` with your PostgreSQL connection:
+Edita `.env` con tu conexión a PostgreSQL:
 ```env
 DATABASE_URL="postgresql://user:password@localhost:5432/squadmakers_db"
 NODE_ENV="development"
@@ -119,57 +121,57 @@ PORT=3000
 LOG_LEVEL="debug"
 CHUCK_NORRIS_API_URL="https://api.chucknorris.io"
 DAD_JOKES_API_URL="https://icanhazdadjoke.com"
-# Optional: ANTHROPIC_API_KEY="your-api-key-here"
+# Opcional: ANTHROPIC_API_KEY="tu-api-key-aqui"
 ```
 
-3. **Setup database and run**
+3. **Configurar base de datos y ejecutar**
 ```bash
-pnpm run db:migrate    # Run migrations
-pnpm run db:seed       # Seed test data
-pnpm run dev           # Start server
+pnpm run db:migrate    # Ejecutar migraciones
+pnpm run db:seed       # Crear datos de prueba
+pnpm run dev           # Iniciar servidor
 ```
 
-The API will be available at `http://localhost:3000`
+La API estará disponible en `http://localhost:3000`
 
 ## 🧪 Testing
 
-### Run all tests
+### Ejecutar todos los tests
 ```bash
 pnpm test
 ```
 
-### Run specific test suites
+### Ejecutar suites específicas
 ```bash
-pnpm run test:unit           # Unit tests only
-pnpm run test:integration    # Integration tests only
-pnpm run test:e2e           # E2E tests only
-pnpm run test:coverage      # Coverage report
+pnpm run test:unit           # Solo tests unitarios
+pnpm run test:integration    # Solo tests de integración
+pnpm run test:e2e           # Solo tests E2E
+pnpm run test:coverage      # Reporte de cobertura
 ```
 
-### Test Environment Setup
+### Configuración del Entorno de Tests
 
-**Unit tests** run without any external dependencies.
+**Tests unitarios** se ejecutan sin dependencias externas.
 
-**Integration & E2E tests** require a running PostgreSQL database. You have two options:
+**Tests de integración y E2E** requieren una base de datos PostgreSQL corriendo. Tienes dos opciones:
 
-**Option 1: Use Docker (Recommended)**
+**Opción 1: Usar Docker (Recomendado)**
 ```bash
-# Start the development environment (includes test database)
+# Iniciar el entorno de desarrollo (incluye base de datos de test)
 pnpm run docker:dev:up
 
-# Run tests (in another terminal)
+# Ejecutar tests (en otra terminal)
 pnpm run test:integration
 pnpm run test:e2e
 ```
 
-**Option 2: Manual setup**
+**Opción 2: Configuración manual**
 
-Create a `.env.test` file with your test database connection:
+Crea un archivo `.env.test` con tu conexión a la base de datos de test:
 ```bash
 cp .env.example .env.test
 ```
 
-Edit `.env.test`:
+Edita `.env.test`:
 ```env
 DATABASE_URL="postgresql://squadmakers_user:squadmakers_dev_password@localhost:5432/squadmakers_db_test"
 NODE_ENV="test"
@@ -179,28 +181,28 @@ CHUCK_NORRIS_API_URL="https://api.chucknorris.io"
 DAD_JOKES_API_URL="https://icanhazdadjoke.com"
 ```
 
-Then run migrations for the test database:
+Luego ejecuta las migraciones para la base de datos de test:
 ```bash
 pnpm run db:migrate:test
 ```
 
-### Test Results
-- **Total Tests:** 388+
-- **Unit Tests:** 240+
-- **Integration Tests:** 80+
-- **E2E Tests:** 68+
-- **Coverage:** 85%+
+### Resultados de Tests
+- **Total de Tests:** 388+
+- **Tests Unitarios:** 240+
+- **Tests de Integración:** 80+
+- **Tests E2E:** 68+
+- **Cobertura:** 85%+
 
-## 🔌 API Endpoints
+## 🔌 Endpoints de la API
 
 ### Health Check
 ```http
 GET /health
 ```
 
-### Jokes Management
+### Gestión de Chistes
 
-#### List All Jokes (with filters)
+#### Listar Todos los Chistes (con filtros)
 ```http
 GET /api/v1/jokes
 GET /api/v1/jokes?userId={uuid}
@@ -210,70 +212,70 @@ GET /api/v1/jokes?categoryName=humor%20negro
 GET /api/v1/jokes?userName=manolito&categoryName=humor%20negro
 ```
 
-#### Create Joke
+#### Crear Chiste
 ```http
 POST /api/v1/jokes
 Content-Type: application/json
 
 {
-  "text": "Why did the chicken cross the road?",
-  "userId": "uuid-here",
-  "categoryId": "uuid-here"
+  "text": "¿Por qué el libro de matemáticas estaba triste? Porque tenía muchos problemas.",
+  "userId": "uuid-aqui",
+  "categoryId": "uuid-aqui"
 }
 ```
 
-#### Get Joke by ID
+#### Obtener Chiste por ID
 ```http
 GET /api/v1/jokes/{id}
 ```
 
-#### Update Joke
+#### Actualizar Chiste
 ```http
 PUT /api/v1/jokes/{id}
 Content-Type: application/json
 
 {
-  "text": "Updated joke text"
+  "text": "Texto del chiste actualizado"
 }
 ```
 
-#### Delete Joke
+#### Eliminar Chiste
 ```http
 DELETE /api/v1/jokes/{id}
 ```
 
-#### Fetch External Joke
+#### Obtener Chiste Externo
 ```http
-GET /api/v1/jokes/chuck    # Chuck Norris joke
+GET /api/v1/jokes/chuck    # Chiste de Chuck Norris
 GET /api/v1/jokes/dad      # Dad joke
 ```
 
-#### AI-Powered Paired Jokes
+#### Chistes Pareados con IA
 ```http
 POST /api/v1/jokes/paired
 ```
 
-Returns 5 pairs of jokes fused with AI:
+Retorna 5 pares de chistes fusionados con IA:
 ```json
 [
   {
-    "chuck": "Chuck Norris can divide by zero.",
-    "dad": "Why don't scientists trust atoms? Because they make up everything!",
-    "combined": "Chuck Norris can divide by zero because atoms make up everything, and he makes up his own rules."
+    "chuck": "Chuck Norris puede dividir por cero.",
+    "dad": "¿Por qué los científicos no confían en los átomos? ¡Porque inventan todo!",
+    "combined": "Chuck Norris puede dividir por cero porque los átomos inventan todo, y él inventa sus propias reglas."
   }
 ]
 ```
 
-> **⚠️ Note:** This endpoint uses Claude API (Anthropic) which incurs costs per request. Please use responsibly and avoid excessive calls to prevent unexpected charges. Each request processes 10 jokes (5 Chuck + 5 Dad) and generates 5 AI-powered combinations. Consider implementing rate limiting or caching for production use. 💸
+> **⚠️ Nota:** Este endpoint usa Claude API (Anthropic) que tiene costo por solicitud. Por favor úsalo responsablemente y evita llamadas excesivas para prevenir cargos inesperados. Cada solicitud procesa 10 chistes (5 Chuck + 5 Dad) y genera 5 combinaciones con IA. Considera implementar rate limiting o caché para uso en producción. 💸
 
-### Mathematical Operations
+### Operaciones Matemáticas
 
-#### Calculate LCM
+#### Calcular MCM (Mínimo Común Múltiplo)
 ```http
 GET /api/v1/math/lcm?numbers=12,18,24
 ```
 
-Response:
+Respuesta:
 ```json
 {
   "numbers": [12, 18, 24],
@@ -281,12 +283,12 @@ Response:
 }
 ```
 
-#### Increment Number
+#### Incrementar Número
 ```http
 GET /api/v1/math/increment?number=42
 ```
 
-Response:
+Respuesta:
 ```json
 {
   "original": 42,
@@ -294,38 +296,38 @@ Response:
 }
 ```
 
-## 📊 SQL Query Examples
+## 📊 Ejemplos de Consultas SQL
 
-As part of the technical challenge requirements, the following SQL queries were requested:
+Como parte de los requerimientos de la prueba técnica, se solicitaron las siguientes consultas SQL:
 
-1. Get all jokes created by user "Manolito"
-2. Get all jokes from category "Humor negro"
-3. Get all jokes from "Humor negro" created by user "Manolito"
+1. Obtener todos los chistes creados por el usuario "Manolito"
+2. Obtener todos los chistes de la categoría "Humor negro"
+3. Obtener todos los chistes de "Humor negro" creados por "Manolito"
 
-Instead of implementing these as separate database queries, I decided to **integrate them as REST API functionality** with proper filtering capabilities, making them more accessible and maintainable.
+En lugar de implementarlas como consultas separadas a la base de datos, decidí **integrarlas como funcionalidad de la API REST** con capacidades de filtrado apropiadas, haciéndolas más accesibles y mantenibles.
 
-### REST API Endpoints
+### Endpoints REST API
 
-#### Query 1: Get all jokes by user "Manolito"
+#### Consulta 1: Obtener todos los chistes de "Manolito"
 ```http
 GET /api/v1/jokes?userName=manolito
 ```
 
-#### Query 2: Get all jokes from category "Humor negro"
+#### Consulta 2: Obtener todos los chistes de "Humor negro"
 ```http
 GET /api/v1/jokes?categoryName=humor%20negro
 ```
 
-#### Query 3: Get jokes from "Humor negro" by "Manolito"
+#### Consulta 3: Obtener chistes de "Humor negro" de "Manolito"
 ```http
 GET /api/v1/jokes?userName=manolito&categoryName=humor%20negro
 ```
 
-### Direct PostgreSQL Queries
+### Consultas Directas en PostgreSQL
 
-If you prefer to run these queries directly in PostgreSQL:
+Si prefieres ejecutar estas consultas directamente en PostgreSQL:
 
-**Query 1: Saca todos los chistes creados por el usuario "Manolito"**
+**Consulta 1: Saca todos los chistes creados por el usuario "Manolito"**
 ```sql
 SELECT
   j.id,
@@ -340,7 +342,7 @@ WHERE u.name = 'manolito'
 ORDER BY j."createdAt" DESC;
 ```
 
-**Query 2: Saca todos los chistes de la temática "Humor negro"**
+**Consulta 2: Saca todos los chistes de la temática "Humor negro"**
 ```sql
 SELECT
   j.id,
@@ -356,7 +358,7 @@ WHERE c.name = 'humor negro'
 ORDER BY j."createdAt" DESC;
 ```
 
-**Query 3: Saca todos los chistes de la temática "Humor negro" creados por el usuario "Manolito"**
+**Consulta 3: Saca todos los chistes de la temática "Humor negro" creados por el usuario "Manolito"**
 ```sql
 SELECT
   j.id,
@@ -373,112 +375,112 @@ WHERE u.name = 'manolito'
 ORDER BY j."createdAt" DESC;
 ```
 
-**Connect to PostgreSQL:**
+**Conectar a PostgreSQL:**
 ```bash
-# Using Docker
+# Usando Docker
 docker exec -it squadmakers-postgres-dev psql -U squadmakers_user -d squadmakers_db
 
-# Or using pnpm with Prisma Studio
+# O usando pnpm con Prisma Studio
 pnpm run db:studio
 ```
 
-### How It Works (Prisma Implementation)
+### Cómo Funciona (Implementación con Prisma)
 
-These queries use Prisma's relational filtering, which internally generates optimized SQL with INNER JOINs to filter by related entity names rather than just IDs.
+Estas consultas usan el filtrado relacional de Prisma, que internamente genera SQL optimizado con INNER JOINs para filtrar por nombres de entidades relacionadas en lugar de solo IDs.
 
-## 🗄️ Database Seeding
+## 🗄️ Seed de Base de Datos
 
-The seed script creates:
-- 4 users: `manolito`, `pepe`, `isabel`, `pedro`
-- 3 categories: `humor negro`, `humor amarillo`, `chistes verdes`
-- 36 jokes (3 per user per category)
+El script de seed crea:
+- 4 usuarios: `manolito`, `pepe`, `isabel`, `pedro`
+- 3 categorías: `humor negro`, `humor amarillo`, `chistes verdes`
+- 36 chistes (3 por usuario por categoría)
 
 ```bash
 pnpm run db:seed
 ```
 
-## 🏗️ Project Structure
+## 🏗️ Estructura del Proyecto
 
 ```
 squadmaker-test/
 ├── src/
-│   ├── contexts/                  # Bounded contexts (DDD)
-│   │   ├── jokes/                # Jokes context
-│   │   │   ├── domain/           # Entities, Value Objects, Repository interfaces
-│   │   │   ├── application/      # Use Cases
-│   │   │   └── infrastructure/   # Prisma, External APIs
-│   │   ├── paired-jokes/         # AI-powered joke fusion
-│   │   ├── math/                 # Mathematical operations
-│   │   └── shared/               # Shared kernel
-│   ├── shared/                   # Shared infrastructure
+│   ├── contexts/                  # Contextos delimitados (DDD)
+│   │   ├── jokes/                # Contexto de Chistes
+│   │   │   ├── domain/           # Entidades, Value Objects, Interfaces de Repositorio
+│   │   │   ├── application/      # Casos de Uso
+│   │   │   └── infrastructure/   # Prisma, APIs Externas
+│   │   ├── paired-jokes/         # Fusión de chistes con IA
+│   │   ├── math/                 # Operaciones matemáticas
+│   │   └── shared/               # Kernel compartido
+│   ├── shared/                   # Infraestructura compartida
 │   │   └── infrastructure/
-│   │       ├── config/           # Environment config
-│   │       ├── logger/           # Winston logger
-│   │       └── http/             # Express server, routes, middlewares
-│   └── index.ts                  # Application entry point
+│   │       ├── config/           # Configuración de entorno
+│   │       ├── logger/           # Logger Winston
+│   │       └── http/             # Servidor Express, rutas, middlewares
+│   └── index.ts                  # Punto de entrada de la aplicación
 ├── tests/
-│   ├── unit/                     # Unit tests
-│   ├── integration/              # Integration tests
-│   ├── e2e/                      # End-to-end tests
-│   └── helpers/                  # Test utilities
+│   ├── unit/                     # Tests unitarios
+│   ├── integration/              # Tests de integración
+│   ├── e2e/                      # Tests end-to-end
+│   └── helpers/                  # Utilidades de testing
 ├── prisma/
-│   ├── schema.prisma             # Database schema
-│   ├── seed.ts                   # Seed script
-│   └── migrations/               # Database migrations
+│   ├── schema.prisma             # Esquema de base de datos
+│   ├── seed.ts                   # Script de seed
+│   └── migrations/               # Migraciones de base de datos
 ├── .github/
 │   └── workflows/
 │       └── ci.yml                # GitHub Actions CI/CD
-├── docker-compose.dev.yml        # Development environment
-├── docker-compose.ci.yml         # CI environment
-├── Dockerfile                    # Production image
+├── docker-compose.dev.yml        # Entorno de desarrollo
+├── docker-compose.ci.yml         # Entorno de CI
+├── Dockerfile                    # Imagen de producción
 └── package.json
 ```
 
-## 🏛️ Architecture
+## 🏛️ Arquitectura
 
-This project follows **Hexagonal Architecture** (Ports & Adapters) with **Domain-Driven Design** principles:
+Este proyecto sigue **Arquitectura Hexagonal** (Puertos y Adaptadores) con principios de **Domain-Driven Design**:
 
-### Layers
+### Capas
 
-1. **Domain Layer** (Core Business Logic)
-   - Entities (Joke, PairedJoke)
+1. **Capa de Dominio** (Lógica de Negocio)
+   - Entidades (Joke, PairedJoke)
    - Value Objects (JokeId, JokeText, UserId, CategoryId)
-   - Repository Interfaces (Ports)
-   - Pure TypeScript, no external dependencies
+   - Interfaces de Repositorio (Puertos)
+   - TypeScript puro, sin dependencias externas
 
-2. **Application Layer** (Use Cases)
+2. **Capa de Aplicación** (Casos de Uso)
    - CreateJoke, GetJoke, UpdateJoke, DeleteJoke
    - FetchExternalJoke, FetchPairedJokes
    - CalculateLCM, IncrementNumber
-   - Orchestrates domain objects
+   - Orquesta objetos de dominio
 
-3. **Infrastructure Layer** (Technical Details)
-   - PrismaJokeRepository (Adapter)
+3. **Capa de Infraestructura** (Detalles Técnicos)
+   - PrismaJokeRepository (Adaptador)
    - ChuckNorrisApiService, DadJokesApiService, ClaudeApiService
-   - HTTP Routes, Controllers, Middlewares
-   - Database, Logging, External APIs
+   - Rutas HTTP, Controladores, Middlewares
+   - Base de datos, Logging, APIs Externas
 
-### Design Patterns
-- Repository Pattern
-- Dependency Injection
-- Object Mother (for testing)
-- Factory Pattern
-- Error Handling with custom domain errors
+### Patrones de Diseño
+- Patrón Repository
+- Inyección de Dependencias
+- Object Mother (para testing)
+- Patrón Factory
+- Manejo de errores con errores de dominio personalizados
 
 ## 🧪 Test-Driven Development (TDD)
 
-Every feature was built following strict **Red-Green-Refactor** cycle:
+Cada funcionalidad fue construida siguiendo el ciclo estricto **Red-Green-Refactor**:
 
-1. **RED:** Write a failing test first
-2. **GREEN:** Write minimal code to pass the test
-3. **REFACTOR:** Improve code quality while keeping tests green
+1. **RED:** Escribir primero un test que falle
+2. **GREEN:** Escribir el código mínimo para pasar el test
+3. **REFACTOR:** Mejorar la calidad del código manteniendo los tests en verde
 
-### Test Pyramid
-- **Unit Tests (60%):** Fast, isolated, test single units
-- **Integration Tests (25%):** Database, external services
-- **E2E Tests (15%):** Full HTTP request/response cycle
+### Pirámide de Tests
+- **Tests Unitarios (60%):** Rápidos, aislados, prueban unidades individuales
+- **Tests de Integración (25%):** Base de datos, servicios externos
+- **Tests E2E (15%):** Ciclo completo de request/response HTTP
 
-### Coverage Thresholds
+### Umbrales de Cobertura
 ```json
 {
   "branches": 85,
@@ -488,270 +490,177 @@ Every feature was built following strict **Red-Green-Refactor** cycle:
 }
 ```
 
-## 🚀 CI/CD Pipeline
+## 🚀 Pipeline CI/CD
 
-### GitHub Actions Workflow
+### Workflow de GitHub Actions
 
-The CI pipeline runs on every push and pull request:
+El pipeline de CI se ejecuta en cada push y pull request:
 
-1. **Lint & Unit Tests** (Fast feedback ~1-2 min)
-   - ESLint code quality check
-   - Unit tests execution
-   - Parallel execution for speed
+1. **Lint & Tests Unitarios** (Feedback rápido ~1-2 min)
+   - Verificación de calidad de código con ESLint
+   - Ejecución de tests unitarios
+   - Ejecución paralela para velocidad
 
 2. **Type Check & Build** (~1-2 min)
-   - TypeScript compilation
-   - Build verification
+   - Compilación de TypeScript
+   - Verificación del build
 
-3. **Integration & E2E Tests** (~3-5 min)
-   - Docker Compose environment
-   - PostgreSQL database
-   - Full test suite
-   - Cleanup
+3. **Tests de Integración & E2E** (~3-5 min)
+   - Entorno Docker Compose
+   - Base de datos PostgreSQL
+   - Suite completa de tests
+   - Limpieza
 
-4. **CI Success** (Summary)
-   - All jobs must pass
+4. **CI Success** (Resumen)
+   - Todos los jobs deben pasar
 
-### Deployment
+### Despliegue
 
-Automatic deployment to Railway on push to `main`:
-- Build Docker image
-- Run database migrations
-- Deploy to production
-- Health check verification
+Despliegue automático a Railway en push a `main`:
+- Construir imagen Docker
+- Ejecutar migraciones de base de datos
+- Desplegar a producción
+- Verificación de health check
 
 ## 🐳 Docker
 
-### Development
+### Desarrollo
 ```bash
-pnpm run docker:dev:up         # Start with hot reload
-pnpm run docker:dev:down       # Stop
-pnpm run docker:dev:logs       # View logs
+pnpm run docker:dev:up         # Iniciar con hot reload
+pnpm run docker:dev:down       # Detener
+pnpm run docker:dev:logs       # Ver logs
 ```
 
 ### CI/CD
 ```bash
-pnpm run docker:ci:up          # Run full test suite
+pnpm run docker:ci:up          # Ejecutar suite completa de tests
 ```
 
-### Production
+### Producción
 ```bash
 docker build -t squadmakers-api .
 docker run -p 3000:3000 --env-file .env squadmakers-api
 ```
 
-## 📝 Available Scripts
+## 📝 Scripts Disponibles
 
 ```bash
-# Development
-pnpm run dev                   # Start dev server with hot reload
-pnpm run build                 # Build for production
-pnpm start                     # Start production server
+# Desarrollo
+pnpm run dev                   # Iniciar servidor dev con hot reload
+pnpm run build                 # Build para producción
+pnpm start                     # Iniciar servidor de producción
 
 # Testing
-pnpm test                      # Run all tests
-pnpm run test:watch            # Watch mode
-pnpm run test:coverage         # Coverage report
-pnpm run test:unit             # Unit tests only
-pnpm run test:integration      # Integration tests
-pnpm run test:e2e             # E2E tests
+pnpm test                      # Ejecutar todos los tests
+pnpm run test:watch            # Modo watch
+pnpm run test:coverage         # Reporte de cobertura
+pnpm run test:unit             # Solo tests unitarios
+pnpm run test:integration      # Tests de integración
+pnpm run test:e2e             # Tests E2E
 
-# Code Quality
-pnpm run lint                  # Run ESLint
-pnpm run lint:fix              # Fix ESLint issues
-pnpm run format                # Format with Prettier
-pnpm run type-check            # TypeScript check
+# Calidad de Código
+pnpm run lint                  # Ejecutar ESLint
+pnpm run lint:fix              # Corregir problemas de ESLint
+pnpm run format                # Formatear con Prettier
+pnpm run type-check            # Verificación de TypeScript
 
-# Database
-pnpm run db:migrate            # Run migrations
-pnpm run db:seed               # Seed database
-pnpm run db:studio             # Open Prisma Studio
-pnpm run db:generate           # Generate Prisma Client
+# Base de Datos
+pnpm run db:migrate            # Ejecutar migraciones
+pnpm run db:seed               # Seed de base de datos
+pnpm run db:studio             # Abrir Prisma Studio
+pnpm run db:generate           # Generar Prisma Client
 
 # Docker
-pnpm run docker:dev:up         # Start dev environment
-pnpm run docker:ci:up          # Run CI tests
+pnpm run docker:dev:up         # Iniciar entorno de desarrollo
+pnpm run docker:ci:up          # Ejecutar tests de CI
 ```
 
-## 🔒 Environment Variables
+## 🔒 Variables de Entorno
 
-Required environment variables:
+Variables de entorno requeridas:
 
 ```env
-# Database
+# Base de Datos
 DATABASE_URL=postgresql://user:password@host:port/database
 
-# Server
+# Servidor
 NODE_ENV=development|production
 PORT=3000
 LOG_LEVEL=debug|info|warn|error
 
-# External APIs
+# APIs Externas
 CHUCK_NORRIS_API_URL=https://api.chucknorris.io
 DAD_JOKES_API_URL=https://icanhazdadjoke.com
 
-# Optional: AI Integration
-ANTHROPIC_API_KEY=your-api-key
+# Opcional: Integración IA
+ANTHROPIC_API_KEY=tu-api-key
 ```
 
-## 🚧 Future Improvements
+## 🚧 Mejoras Futuras
 
-While this project demonstrates production-ready architecture and best practices, here are some enhancements that could be implemented given more time:
+Aunque este proyecto demuestra arquitectura lista para producción y mejores prácticas, aquí hay algunas mejoras que podrían implementarse con más tiempo:
 
-### Performance & Scalability
-- **Redis Caching Layer**
-  - Cache frequently accessed jokes and external API responses
-  - Reduce database load and improve response times
-  - Implement cache invalidation strategies
-  - Example: Cache Chuck Norris and Dad Jokes for 1 hour
+### Rendimiento y Escalabilidad
+- **Capa de Caché con Redis**
+- **Optimización de Base de Datos**
+- **Rate Limiting por Usuario**
 
-- **Database Optimization**
-  - Add database indexes on frequently queried fields (userName, categoryName)
-  - Implement database connection pooling optimization
-  - Add read replicas for high-traffic scenarios
-  - Query performance monitoring and optimization
+### Funcionalidades
+- **Paginación y Filtrado Avanzado**
+- **Autenticación y Autorización de Usuarios**
+- **Reacciones y Analíticas de Chistes**
+- **Funcionalidades Avanzadas de IA**
 
-- **API Rate Limiting Per User**
-  - Implement user-specific rate limiting (currently global)
-  - Add API key authentication for better control
-  - Track usage per client/API key
+### Monitoreo y Observabilidad
+- **Integración APM**
+- **Logging Estructurado**
+- **Health Checks Mejorados**
 
-### Features
-- **Pagination & Filtering**
-  - Add pagination to `GET /api/v1/jokes` (limit, offset, cursor-based)
-  - Advanced filtering (date ranges, text search, popularity)
-  - Sorting options (createdAt, updatedAt, likes)
-
-- **User Authentication & Authorization**
-  - JWT-based authentication
-  - Role-based access control (RBAC)
-  - Users can only modify their own jokes
-
-- **Joke Reactions & Analytics**
-  - Like/dislike system
-  - View count tracking
-  - Popular jokes endpoint
-  - User activity analytics
-
-- **Advanced AI Features**
-  - Joke sentiment analysis
-  - Automatic joke categorization
-  - Joke quality scoring
-  - Personalized joke recommendations
-
-### Monitoring & Observability
-- **APM Integration**
-  - New Relic, DataDog, or Sentry for error tracking
-  - Performance monitoring and alerting
-  - Custom metrics and dashboards
-
-- **Structured Logging**
-  - Enhanced Winston configuration with log aggregation
-  - Request tracing with correlation IDs
-  - Log levels per environment
-
-- **Health Checks Enhancement**
-  - Database connectivity check
-  - External API availability check
-  - Disk space and memory monitoring
-
-### Testing & Quality
+### Testing y Calidad
 - **Load Testing**
-  - Artillery or k6 for performance testing
-  - Identify bottlenecks under high load
-  - Set performance baselines (SLAs/SLOs)
-
 - **Contract Testing**
-  - Pact for consumer-driven contracts
-  - Ensure API compatibility across versions
-
 - **Mutation Testing**
-  - Stryker for test quality validation
-  - Identify gaps in test coverage
 
-### DevOps & Infrastructure
-- **Multi-Region Deployment**
-  - Deploy to multiple regions for lower latency
-  - Geographic load balancing
-
-- **Kubernetes Orchestration**
-  - Migrate from Railway to K8s for better control
-  - Auto-scaling based on traffic
-  - Zero-downtime deployments
-
+### DevOps e Infraestructura
+- **Despliegue Multi-Región**
+- **Orquestación con Kubernetes**
 - **Infrastructure as Code**
-  - Terraform or Pulumi for infrastructure provisioning
-  - Version-controlled infrastructure changes
 
-### Security
-- **Security Headers**
-  - Enhanced Helmet.js configuration
-  - CORS fine-tuning per environment
-  - Content Security Policy (CSP)
-
-- **Input Sanitization**
-  - Enhanced XSS and SQL injection prevention
-  - Request validation middleware
-
-- **Secrets Management**
-  - HashiCorp Vault or AWS Secrets Manager
-  - Automatic secret rotation
-
-### Documentation
-- **Postman Collection**
-  - Pre-configured requests for easy testing
-  - Environment variables setup
-
-- **Architecture Diagrams**
-  - C4 model diagrams
-  - Sequence diagrams for complex flows
-  - ER diagrams for database schema
-
-### Cost Optimization
-- **Claude API Caching**
-  - Cache AI-generated joke combinations
-  - Reduce API calls and costs
-  - Implement cache warming strategies
-
-- **Serverless Migration for Low-Traffic Endpoints**
-  - Move infrequent endpoints to AWS Lambda or similar
-  - Pay only for actual usage
-
-I intentionally skipped most of these improvements to focus on demonstrating:
-- Clean architecture principles
+Intencionalmente omití la mayoría de estas mejoras para enfocarme en demostrar:
+- Principios de arquitectura limpia
 - Test-driven development
-- Production deployment
-- CI/CD implementation
+- Despliegue en producción
+- Implementación de CI/CD
 
-The current implementation prioritizes **code quality**, **testability**, and **maintainability** over feature completeness.
+La implementación actual prioriza **calidad de código**, **testabilidad** y **mantenibilidad** sobre completitud de funcionalidades.
 
-## 🤝 Contributing
+## 🤝 Contribuciones
 
-This is a technical challenge project. Contributions are not expected, but the codebase demonstrates:
+Este es un proyecto de prueba técnica. No se esperan contribuciones, pero el código demuestra:
 
-- Clean code principles
-- SOLID principles
+- Principios de código limpio
+- Principios SOLID
 - DRY (Don't Repeat Yourself)
 - KISS (Keep It Simple, Stupid)
-- Separation of concerns
-- Dependency inversion
+- Separación de responsabilidades
+- Inversión de dependencias
 
-## 📄 License
+## 📄 Licencia
 
 MIT
 
-## 👨‍💻 Author
+## 👨‍💻 Autor
 
 **Cristian Del Rio**
 
-Built as a technical challenge to demonstrate:
-- Advanced Node.js/TypeScript development
-- Hexagonal Architecture implementation
+Construido como prueba técnica para demostrar:
+- Desarrollo avanzado en Node.js/TypeScript
+- Implementación de Arquitectura Hexagonal
 - Test-Driven Development (TDD)
-- CI/CD best practices
-- Production-ready deployment
-- AI integration capabilities
+- Mejores prácticas de CI/CD
+- Despliegue listo para producción
+- Capacidades de integración con IA
 
 ---
 
-**⭐ If you found this project helpful, please consider giving it a star!**
+**⭐ ¡Si encontraste útil este proyecto, considera darle una estrella!**
