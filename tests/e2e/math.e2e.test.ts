@@ -64,6 +64,16 @@ describe('Math Endpoints E2E', () => {
       expect(response.body).toHaveProperty('error');
     });
 
+    it('should return 400 when numbers is only whitespace', async () => {
+      const response = await request(app)
+        .get('/api/v1/math/lcm')
+        .query({ numbers: '   ' })
+        .expect(400);
+
+      expect(response.body).toHaveProperty('error');
+      expect(response.body.error).toBe('Numbers array cannot be empty');
+    });
+
     it('should return 400 when numbers contain zero', async () => {
       const response = await request(app)
         .get('/api/v1/math/lcm')
