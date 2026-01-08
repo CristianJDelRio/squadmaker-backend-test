@@ -10,6 +10,10 @@ A professional REST API for joke management built with **Hexagonal Architecture*
 - **Swagger Documentation:** https://squadmaker-backend-test-production.up.railway.app/api-docs
 - **Health Check:** https://squadmaker-backend-test-production.up.railway.app/health
 
+> **📝 Important - Swagger Server Selection:** When using the interactive API documentation at `/api-docs`, make sure to select the correct server from the dropdown menu at the top of the page:
+> - **🚀 Production server** - Select this to test against the live API deployed on Railway
+> - **🔧 Development server** - Select this only if you're running the API locally on `localhost:3000`
+
 ## ✨ Features
 
 ### Core Functionality

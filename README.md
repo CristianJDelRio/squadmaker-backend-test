@@ -10,6 +10,10 @@ Una API REST profesional para gestión de chistes construida con **Arquitectura 
 - **Documentación Swagger:** <https://squadmaker-backend-test-production.up.railway.app/api-docs>
 - **Health Check:** <https://squadmaker-backend-test-production.up.railway.app/health>
 
+> **📝 Importante - Selección de Servidor en Swagger:** Al usar la documentación interactiva de la API en `/api-docs`, asegúrate de seleccionar el servidor correcto del menú desplegable en la parte superior de la página:
+> - **🚀 Production server** - Selecciona este para probar contra la API en vivo desplegada en Railway
+> - **🔧 Development server** - Selecciona este solo si estás ejecutando la API localmente en `localhost:3000`
+
 ## ✨ Características
 
 ### Funcionalidades Principales
@@ -68,14 +72,24 @@ Una API REST profesional para gestión de chistes construida con **Arquitectura 
 
 ### Inicio Rápido (Docker - Recomendado) 🐳
 
-La forma más rápida de comenzar - **solo 2 comandos**:
+La forma más rápida de comenzar - **solo 3 pasos**:
 
 ```bash
 # 1. Clonar y entrar al proyecto
 git clone https://github.com/CristianJDelRio/squadmaker-backend-test.git
 cd squadmaker-test
 
-# 2. Iniciar todo con Docker
+# 2. Configurar archivos de entorno
+cp .env.example .env.dev     # Para desarrollo
+cp .env.example .env.test    # Para tests
+```
+
+**Importante:** Edita los archivos según las necesidades del proyecto:
+- `.env.dev`: Mantén `DATABASE_URL` con `squadmakers_db` y `NODE_ENV=development`
+- `.env.test`: Cambia `DATABASE_URL` a `squadmakers_db_test` y `NODE_ENV=test`
+
+```bash
+# 3. Iniciar todo con Docker
 pnpm run docker:dev:up
 ```
 
