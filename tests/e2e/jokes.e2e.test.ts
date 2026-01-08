@@ -14,7 +14,7 @@ import { setPrismaClient } from '../../src/contexts/shared/infrastructure/persis
 import {
   CreateJokeRequest,
   UpdateJokeRequest,
-} from '../../src/shared/infrastructure/http/validation/jokeSchemas';
+} from '../../src/contexts/jokes/infrastructure/http/jokeSchemas';
 
 describe('Jokes API E2E', () => {
   let app: Application;

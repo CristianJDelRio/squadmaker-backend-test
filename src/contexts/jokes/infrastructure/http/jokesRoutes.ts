@@ -1,23 +1,23 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { ZodError } from 'zod';
-import { PrismaJokeRepository } from '../../../../contexts/jokes/infrastructure/persistence/PrismaJokeRepository';
-import { getPrismaClient } from '../../../../contexts/shared/infrastructure/persistence/prisma/PrismaClientSingleton';
-import { CreateJoke } from '../../../../contexts/jokes/application/CreateJoke';
-import { GetJoke } from '../../../../contexts/jokes/application/GetJoke';
-import { GetJokesByQuery } from '../../../../contexts/jokes/application/GetJokesByQuery';
-import { UpdateJoke } from '../../../../contexts/jokes/application/UpdateJoke';
-import { DeleteJoke } from '../../../../contexts/jokes/application/DeleteJoke';
-import { FetchExternalJoke } from '../../../../contexts/jokes/application/FetchExternalJoke';
-import { ChuckNorrisApiService } from '../../../../contexts/jokes/infrastructure/external-apis/ChuckNorrisApiService';
-import { DadJokesApiService } from '../../../../contexts/jokes/infrastructure/external-apis/DadJokesApiService';
-import { FetchPairedJokes } from '../../../../contexts/paired-jokes/application/FetchPairedJokes';
-import { ClaudeApiService } from '../../../../contexts/paired-jokes/infrastructure/external-apis/ClaudeApiService';
+import { PrismaJokeRepository } from '../persistence/PrismaJokeRepository';
+import { getPrismaClient } from '../../../shared/infrastructure/persistence/prisma/PrismaClientSingleton';
+import { CreateJoke } from '../../application/CreateJoke';
+import { GetJoke } from '../../application/GetJoke';
+import { GetJokesByQuery } from '../../application/GetJokesByQuery';
+import { UpdateJoke } from '../../application/UpdateJoke';
+import { DeleteJoke } from '../../application/DeleteJoke';
+import { FetchExternalJoke } from '../../application/FetchExternalJoke';
+import { ChuckNorrisApiService } from '../external-apis/ChuckNorrisApiService';
+import { DadJokesApiService } from '../external-apis/DadJokesApiService';
+import { FetchPairedJokes } from '../../../paired-jokes/application/FetchPairedJokes';
+import { ClaudeApiService } from '../../../paired-jokes/infrastructure/external-apis/ClaudeApiService';
 import {
   CreateJokeRequestSchema,
   UpdateJokeRequestSchema,
   GetJokesQuerySchema,
   JokeTypeParamSchema,
-} from '../validation/jokeSchemas';
+} from './jokeSchemas';
 
 function isUUID(str: string): boolean {
   const uuidRegex =

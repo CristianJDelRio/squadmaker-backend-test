@@ -1,11 +1,8 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { ZodError } from 'zod';
-import { CalculateLCM } from '../../../../contexts/math/application/CalculateLCM';
-import { IncrementNumber } from '../../../../contexts/math/application/IncrementNumber';
-import {
-  LCMQuerySchema,
-  IncrementQuerySchema,
-} from '../validation/mathSchemas';
+import { CalculateLCM } from '../../application/CalculateLCM';
+import { IncrementNumber } from '../../application/IncrementNumber';
+import { LCMQuerySchema, IncrementQuerySchema } from './mathSchemas';
 
 export function createMathRoutes(): Router {
   const router = Router();
