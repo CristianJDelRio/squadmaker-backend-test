@@ -6,13 +6,14 @@ Una API REST profesional para gestión de chistes construida con **Arquitectura 
 
 ## 🚀 Demo en Vivo
 
-- **API en Producción:** https://squadmaker-backend-test-production.up.railway.app
-- **Documentación Swagger:** https://squadmaker-backend-test-production.up.railway.app/api-docs
-- **Health Check:** https://squadmaker-backend-test-production.up.railway.app/health
+- **API en Producción:** <https://squadmaker-backend-test-production.up.railway.app>
+- **Documentación Swagger:** <https://squadmaker-backend-test-production.up.railway.app/api-docs>
+- **Health Check:** <https://squadmaker-backend-test-production.up.railway.app/health>
 
 ## ✨ Características
 
 ### Funcionalidades Principales
+
 - ✅ **CRUD Completo** para chistes (Crear, Leer, Actualizar, Eliminar)
 - ✅ **Integración con APIs Externas** (Chuck Norris API, Dad Jokes API)
 - ✅ **Operaciones Matemáticas** (Cálculo de MCM, incremento de números)
@@ -22,6 +23,7 @@ Una API REST profesional para gestión de chistes construida con **Arquitectura 
 - ✅ **Documentación Interactiva** con Swagger/OpenAPI
 
 ### Excelencia Técnica
+
 - ✅ **Arquitectura Hexagonal** (Puertos y Adaptadores)
 - ✅ **TDD Estricto** (Test-Driven Development) con 388+ tests
 - ✅ **85%+ de Cobertura de Código**
@@ -34,6 +36,7 @@ Una API REST profesional para gestión de chistes construida con **Arquitectura 
 ## 🛠️ Stack Tecnológico
 
 ### Core
+
 - **Runtime:** Node.js 20+
 - **Lenguaje:** TypeScript (modo estricto)
 - **Framework:** Express.js
@@ -43,6 +46,7 @@ Una API REST profesional para gestión de chistes construida con **Arquitectura 
 - **Validación:** Zod
 
 ### DevOps y Herramientas
+
 - **Contenedores:** Docker + Docker Compose
 - **CI/CD:** GitHub Actions
 - **Despliegue:** Railway
@@ -51,12 +55,14 @@ Una API REST profesional para gestión de chistes construida con **Arquitectura 
 - **Calidad de Código:** ESLint, Prettier, Husky
 
 ### Servicios Externos
+
 - **APIs de Chistes:** Chuck Norris API, icanhazdadjoke API
 - **Integración IA:** Anthropic Claude API (Sonnet 4.5)
 
 ## 📦 Instalación
 
 ### Prerrequisitos
+
 - Docker & Docker Compose
 - pnpm 10.27.0+ (solo si ejecutas sin Docker)
 
@@ -66,30 +72,33 @@ La forma más rápida de comenzar - **solo 2 comandos**:
 
 ```bash
 # 1. Clonar y entrar al proyecto
-git clone <repository-url>
+git clone https://github.com/CristianJDelRio/squadmaker-backend-test.git
 cd squadmaker-test
 
 # 2. Iniciar todo con Docker
 pnpm run docker:dev:up
 ```
 
-¡Eso es todo! 🚀 
+¡Eso es todo! 🚀
 
 **Qué sucede automáticamente:**
+
 1. ✅ PostgreSQL 15 inicia y espera el healthcheck
 2. ✅ Las migraciones se ejecutan (`prisma migrate deploy`)
 3. ✅ Se crean los datos de prueba (4 usuarios, 3 categorías, 36 chistes)
 4. ✅ El servidor de desarrollo inicia con hot reload
 
 **URLs Disponibles:**
+
 | URL | Descripción |
 |-----|-------------|
-| http://localhost:3000 | URL Base de la API |
-| http://localhost:3000/api-docs | Documentación Interactiva Swagger |
-| http://localhost:3000/health | Health Check |
-| http://localhost:3000/api/v1/jokes | Listar todos los chistes (36 creados) |
+| <http://localhost:3000> | URL Base de la API |
+| <http://localhost:3000/api-docs> | Documentación Interactiva Swagger |
+| <http://localhost:3000/health> | Health Check |
+| <http://localhost:3000/api/v1/jokes> | Listar todos los chistes (36 creados) |
 
 **Comandos útiles:**
+
 ```bash
 pnpm run docker:dev:up      # Iniciar todo
 pnpm run docker:dev:down    # Detener todo
@@ -102,6 +111,7 @@ pnpm run docker:dev:rebuild # Reconstruir desde cero
 Si prefieres ejecutar localmente sin Docker:
 
 1. **Clonar e instalar**
+
 ```bash
 git clone <repository-url>
 cd squadmaker-test
@@ -109,11 +119,13 @@ pnpm install
 ```
 
 2. **Configurar entorno**
+
 ```bash
 cp .env.example .env
 ```
 
 Edita `.env` con tu conexión a PostgreSQL:
+
 ```env
 DATABASE_URL="postgresql://user:password@localhost:5432/squadmakers_db"
 NODE_ENV="development"
@@ -125,6 +137,7 @@ DAD_JOKES_API_URL="https://icanhazdadjoke.com"
 ```
 
 3. **Configurar base de datos y ejecutar**
+
 ```bash
 pnpm run db:migrate    # Ejecutar migraciones
 pnpm run db:seed       # Crear datos de prueba
@@ -136,11 +149,13 @@ La API estará disponible en `http://localhost:3000`
 ## 🧪 Testing
 
 ### Ejecutar todos los tests
+
 ```bash
 pnpm test
 ```
 
 ### Ejecutar suites específicas
+
 ```bash
 pnpm run test:unit           # Solo tests unitarios
 pnpm run test:integration    # Solo tests de integración
@@ -155,6 +170,7 @@ pnpm run test:coverage      # Reporte de cobertura
 **Tests de integración y E2E** requieren una base de datos PostgreSQL corriendo. Tienes dos opciones:
 
 **Opción 1: Usar Docker (Recomendado)**
+
 ```bash
 # Iniciar el entorno de desarrollo (incluye base de datos de test)
 pnpm run docker:dev:up
@@ -167,11 +183,13 @@ pnpm run test:e2e
 **Opción 2: Configuración manual**
 
 Crea un archivo `.env.test` con tu conexión a la base de datos de test:
+
 ```bash
 cp .env.example .env.test
 ```
 
 Edita `.env.test`:
+
 ```env
 DATABASE_URL="postgresql://squadmakers_user:squadmakers_dev_password@localhost:5432/squadmakers_db_test"
 NODE_ENV="test"
@@ -182,11 +200,13 @@ DAD_JOKES_API_URL="https://icanhazdadjoke.com"
 ```
 
 Luego ejecuta las migraciones para la base de datos de test:
+
 ```bash
 pnpm run db:migrate:test
 ```
 
 ### Resultados de Tests
+
 - **Total de Tests:** 388+
 - **Tests Unitarios:** 240+
 - **Tests de Integración:** 80+
@@ -196,6 +216,7 @@ pnpm run db:migrate:test
 ## 🔌 Endpoints de la API
 
 ### Health Check
+
 ```http
 GET /health
 ```
@@ -203,6 +224,7 @@ GET /health
 ### Gestión de Chistes
 
 #### Listar Todos los Chistes (con filtros)
+
 ```http
 GET /api/v1/jokes
 GET /api/v1/jokes?userId={uuid}
@@ -213,6 +235,7 @@ GET /api/v1/jokes?userName=manolito&categoryName=humor%20negro
 ```
 
 #### Crear Chiste
+
 ```http
 POST /api/v1/jokes
 Content-Type: application/json
@@ -225,11 +248,13 @@ Content-Type: application/json
 ```
 
 #### Obtener Chiste por ID
+
 ```http
 GET /api/v1/jokes/{id}
 ```
 
 #### Actualizar Chiste
+
 ```http
 PUT /api/v1/jokes/{id}
 Content-Type: application/json
@@ -240,22 +265,26 @@ Content-Type: application/json
 ```
 
 #### Eliminar Chiste
+
 ```http
 DELETE /api/v1/jokes/{id}
 ```
 
 #### Obtener Chiste Externo
+
 ```http
 GET /api/v1/jokes/chuck    # Chiste de Chuck Norris
 GET /api/v1/jokes/dad      # Dad joke
 ```
 
 #### Chistes Pareados con IA
+
 ```http
 POST /api/v1/jokes/paired
 ```
 
 Retorna 5 pares de chistes fusionados con IA:
+
 ```json
 [
   {
@@ -271,11 +300,13 @@ Retorna 5 pares de chistes fusionados con IA:
 ### Operaciones Matemáticas
 
 #### Calcular MCM (Mínimo Común Múltiplo)
+
 ```http
 GET /api/v1/math/lcm?numbers=12,18,24
 ```
 
 Respuesta:
+
 ```json
 {
   "numbers": [12, 18, 24],
@@ -284,11 +315,13 @@ Respuesta:
 ```
 
 #### Incrementar Número
+
 ```http
 GET /api/v1/math/increment?number=42
 ```
 
 Respuesta:
+
 ```json
 {
   "original": 42,
@@ -309,16 +342,19 @@ En lugar de implementarlas como consultas separadas a la base de datos, decidí 
 ### Endpoints REST API
 
 #### Consulta 1: Obtener todos los chistes de "Manolito"
+
 ```http
 GET /api/v1/jokes?userName=manolito
 ```
 
 #### Consulta 2: Obtener todos los chistes de "Humor negro"
+
 ```http
 GET /api/v1/jokes?categoryName=humor%20negro
 ```
 
 #### Consulta 3: Obtener chistes de "Humor negro" de "Manolito"
+
 ```http
 GET /api/v1/jokes?userName=manolito&categoryName=humor%20negro
 ```
@@ -328,6 +364,7 @@ GET /api/v1/jokes?userName=manolito&categoryName=humor%20negro
 Si prefieres ejecutar estas consultas directamente en PostgreSQL:
 
 **Consulta 1: Saca todos los chistes creados por el usuario "Manolito"**
+
 ```sql
 SELECT
   j.id,
@@ -343,6 +380,7 @@ ORDER BY j."createdAt" DESC;
 ```
 
 **Consulta 2: Saca todos los chistes de la temática "Humor negro"**
+
 ```sql
 SELECT
   j.id,
@@ -359,6 +397,7 @@ ORDER BY j."createdAt" DESC;
 ```
 
 **Consulta 3: Saca todos los chistes de la temática "Humor negro" creados por el usuario "Manolito"**
+
 ```sql
 SELECT
   j.id,
@@ -376,6 +415,7 @@ ORDER BY j."createdAt" DESC;
 ```
 
 **Conectar a PostgreSQL:**
+
 ```bash
 # Usando Docker
 docker exec -it squadmakers-postgres-dev psql -U squadmakers_user -d squadmakers_db
@@ -391,6 +431,7 @@ Estas consultas usan el filtrado relacional de Prisma, que internamente genera S
 ## 🗄️ Seed de Base de Datos
 
 El script de seed crea:
+
 - 4 usuarios: `manolito`, `pepe`, `isabel`, `pedro`
 - 3 categorías: `humor negro`, `humor amarillo`, `chistes verdes`
 - 36 chistes (3 por usuario por categoría)
@@ -461,6 +502,7 @@ Este proyecto sigue **Arquitectura Hexagonal** (Puertos y Adaptadores) con princ
    - Base de datos, Logging, APIs Externas
 
 ### Patrones de Diseño
+
 - Patrón Repository
 - Inyección de Dependencias
 - Object Mother (para testing)
@@ -476,11 +518,13 @@ Cada funcionalidad fue construida siguiendo el ciclo estricto **Red-Green-Refact
 3. **REFACTOR:** Mejorar la calidad del código manteniendo los tests en verde
 
 ### Pirámide de Tests
+
 - **Tests Unitarios (60%):** Rápidos, aislados, prueban unidades individuales
 - **Tests de Integración (25%):** Base de datos, servicios externos
 - **Tests E2E (15%):** Ciclo completo de request/response HTTP
 
 ### Umbrales de Cobertura
+
 ```json
 {
   "branches": 85,
@@ -517,6 +561,7 @@ El pipeline de CI se ejecuta en cada push y pull request:
 ### Despliegue
 
 Despliegue automático a Railway en push a `main`:
+
 - Construir imagen Docker
 - Ejecutar migraciones de base de datos
 - Desplegar a producción
@@ -525,6 +570,7 @@ Despliegue automático a Railway en push a `main`:
 ## 🐳 Docker
 
 ### Desarrollo
+
 ```bash
 pnpm run docker:dev:up         # Iniciar con hot reload
 pnpm run docker:dev:down       # Detener
@@ -532,11 +578,13 @@ pnpm run docker:dev:logs       # Ver logs
 ```
 
 ### CI/CD
+
 ```bash
 pnpm run docker:ci:up          # Ejecutar suite completa de tests
 ```
 
 ### Producción
+
 ```bash
 docker build -t squadmakers-api .
 docker run -p 3000:3000 --env-file .env squadmakers-api
@@ -601,32 +649,38 @@ ANTHROPIC_API_KEY=tu-api-key
 Aunque este proyecto demuestra arquitectura lista para producción y mejores prácticas, aquí hay algunas mejoras que podrían implementarse con más tiempo:
 
 ### Rendimiento y Escalabilidad
+
 - **Capa de Caché con Redis**
 - **Optimización de Base de Datos**
 - **Rate Limiting por Usuario**
 
 ### Funcionalidades
+
 - **Paginación y Filtrado Avanzado**
 - **Autenticación y Autorización de Usuarios**
 - **Reacciones y Analíticas de Chistes**
 - **Funcionalidades Avanzadas de IA**
 
 ### Monitoreo y Observabilidad
+
 - **Integración APM**
 - **Logging Estructurado**
 - **Health Checks Mejorados**
 
 ### Testing y Calidad
+
 - **Load Testing**
 - **Contract Testing**
 - **Mutation Testing**
 
 ### DevOps e Infraestructura
+
 - **Despliegue Multi-Región**
 - **Orquestación con Kubernetes**
 - **Infrastructure as Code**
 
 Intencionalmente omití la mayoría de estas mejoras para enfocarme en demostrar:
+
 - Principios de arquitectura limpia
 - Test-driven development
 - Despliegue en producción
@@ -654,6 +708,7 @@ MIT
 **Cristian Del Rio**
 
 Construido como prueba técnica para demostrar:
+
 - Desarrollo avanzado en Node.js/TypeScript
 - Implementación de Arquitectura Hexagonal
 - Test-Driven Development (TDD)
