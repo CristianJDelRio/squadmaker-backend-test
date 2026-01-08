@@ -4,6 +4,7 @@ import cors from 'cors';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 import swaggerUi from 'swagger-ui-express';
+import { env } from '../config/env';
 import { Logger } from '../logger/Logger';
 import { errorHandler } from './middlewares/errorHandler';
 import { requestLogger } from './middlewares/requestLogger';
@@ -34,7 +35,8 @@ export class Server {
 
     const limiter = rateLimit({
       windowMs: 15 * 60 * 1000,
-      max: 100,
+      max: env.nodeEnv === 'production' ? 1000 : 100,
+      message: 'Too many requests, please try again later',
     });
     this.app.use(limiter);
 
